@@ -1,0 +1,142 @@
+<!-- =============== shop section  =============== -->
+<div class="money-goes-pg accountablility-landowner">
+    <div class="container">
+        <h1 class="heading">Where Your Money Goes</h1>
+        <div class="heading-btn">
+            <h2>Landowner</h2>
+            <a class="white-btn" (click)="signIn(); "> already  customer , sign in to View Impact report</a>
+        </div>
+        <ngx-slick-carousel
+        class="money-goes"
+        #slickModal="slick-carousel"
+        [config]="storyOwner"
+      >
+            <div ngxSlickItem class="slide">
+                <div class="money-goes-wrap">
+                    <div class="owner-listing"  *ngFor="let owner of owners">
+                        <div class="listing-inner">
+                                <nz-avatar  
+                                nzIcon="user"
+                                [nzSize]="115"
+                                nzSrc="{{ owner.img}}"
+                            ></nz-avatar>
+                            <div class="owner-name">
+                                <h4>{{ owner.name}}</h4>
+                                <h5>{{ owner.title}} </h5>
+                            </div>
+                            <div class="price-des">
+                                <p class="price">${{ owner.price}} <span>{{ owner.allocated}}</span></p>
+                            </div>
+                            <div class="cs-progress-bar">
+                                <p class="bar-info" style="left:30% ;"><span>$1,033.00</span></p>
+                                <nz-progress class="cs-bar" [nzPercent]="30" [nzShowInfo]="false"></nz-progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ngxSlickItem class="slide">
+                <div class="money-goes-wrap">
+                    <div class="owner-listing"  *ngFor="let owner of owners">
+                        <div class="listing-inner">
+                                <nz-avatar  
+                                nzIcon="user"
+                                [nzSize]="115"
+                                nzSrc="{{ owner.img}}"
+                            ></nz-avatar>
+                            <div class="owner-name">
+                                <h4>{{ owner.name}}</h4>
+                                <h5>{{ owner.title}} </h5>
+                            </div>
+                            <div class="price-des">
+                                <p class="price">${{ owner.price}} <span>{{ owner.allocated}}</span></p>
+                            </div>
+                            <div class="cs-progress-bar">
+                                <p class="bar-info" style="left:30% ;"><span>$1,033.00</span></p>
+                                <nz-progress class="cs-bar" [nzPercent]="30" [nzShowInfo]="false"></nz-progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ngxSlickItem class="slide">
+                <div class="money-goes-wrap">
+                    <div class="owner-listing"  *ngFor="let owner of owners">
+                        <div class="listing-inner">
+                                <nz-avatar  
+                                nzIcon="user"
+                                [nzSize]="115"
+                                nzSrc="{{ owner.img}}"
+                            ></nz-avatar>
+                            <div class="owner-name">
+                                <h4>{{ owner.name}}</h4>
+                                <h5>{{ owner.title}} </h5>
+                            </div>
+                            <div class="price-des">
+                                <p class="price">${{ owner.price}} <span>{{ owner.allocated}}</span></p>
+                            </div>
+                            <div class="cs-progress-bar">
+                                <p class="bar-info" style="left:30% ;"><span>$1,033.00</span></p>
+                                <nz-progress class="cs-bar" [nzPercent]="30" [nzShowInfo]="false"></nz-progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ngxSlickItem class="slide">
+                <div class="money-goes-wrap">
+                    <div class="owner-listing"  *ngFor="let owner of owners">
+                        <div class="listing-inner">
+                                <nz-avatar  
+                                nzIcon="user"
+                                [nzSize]="115"
+                                nzSrc="{{ owner.img}}"
+                            ></nz-avatar>
+                            <div class="owner-name">
+                                <h4>{{ owner.name}}</h4>
+                                <h5>{{ owner.title}} </h5>
+                            </div>
+                            <div class="price-des">
+                                <p class="price">${{ owner.price}} <span>{{ owner.allocated}}</span></p>
+                            </div>
+                            <div class="cs-progress-bar">
+                                <p class="bar-info" style="left:30% ;"><span>$1,033.00</span></p>
+                                <nz-progress class="cs-bar" [nzPercent]="30" [nzShowInfo]="false"></nz-progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ngxSlickItem class="slide">
+                <div class="money-goes-wrap">
+                    <div class="owner-listing"  *ngFor="let owner of owners">
+                        <div class="listing-inner">
+                                <nz-avatar  
+                                nzIcon="user"
+                                [nzSize]="115"
+                                nzSrc="{{ owner.img}}"
+                            ></nz-avatar>
+                            <div class="owner-name">
+                                <h4>{{ owner.name}}</h4>
+                                <h5>{{ owner.title}} </h5>
+                            </div>
+                            <div class="price-des">
+                                <p class="price">${{ owner.price}} <span>{{ owner.allocated}}</span></p>
+                            </div>
+                            <div class="cs-progress-bar">
+                                <p class="bar-info" style="left:30% ;"><span>$1,033.00</span></p>
+                                <nz-progress class="cs-bar" [nzPercent]="30" [nzShowInfo]="false"></nz-progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </ngx-slick-carousel>
+        
+        <div class="view-more-landowner text-center">
+            <button nz-button nzType="primary" (click)="viewLandowner()">View More Landowners</button>
+        </div>
+    </div>
+  </div> 
+  <!-- =============== shop section end =============== --> 

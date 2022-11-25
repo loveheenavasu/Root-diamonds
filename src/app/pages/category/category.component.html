@@ -1,0 +1,1161 @@
+<!-- =============== shop section  =============== -->
+<div class="shop-sec-inner">
+  <div class="container">
+    <div *ngIf="productPageLoading"  class="spinner-class">
+      <div class="loader">
+      </div>
+      </div>
+    <nz-tabset *ngIf="categoryWiseProduct?.length > 0" nzCentered class="categories-tab" [nzSelectedIndex]="outerIndex">
+      <nz-tab  (nzClick)='clearFilter(0);openLink("Shop all")' nzTitle="Shop all" class="shop-all-tab">
+        <div
+          class="heading-filter-btn d-flex justify-content-between align-items-center"
+        >
+          <h3 class="heading">Storied Diamonds</h3>
+          <a class="filter-btn" (click)="shopAllFilter($event)">
+            <img src="../../../assets/img/filter.svg" />
+            Filter
+          </a>
+        </div>
+        <div  class="d-flex shop-all-wrap" *ngFor="let category of categoryWiseProduct" >
+          <div class="shopall-categories">
+            <!-- Category Start -Polish -->
+            <div class="sub-heading">
+              <h4>{{category.name}}</h4>
+              <p *ngIf="category.products.length === 0"> No Data Found in {{category.name}} category</p>
+            </div>
+            <div class="category-outer">
+              <div class="category-listing">
+                <div class="inner-wrap">
+                  <!-- Listing  -->
+                  <div class="category-wrap" *ngFor="let categoryProduct of category.products">
+                    <div class="product-img">
+                      <figure>
+                        <img src="{{ categoryProduct.image }}" alt="" />
+                      </figure>
+                    </div>
+                    <div class="product-description" (click)="showModal3(categoryProduct)">
+                      <h4 class="product-name">
+                        {{ categoryProduct?.Stone?.gemstone }}
+                      </h4>
+                      <!-- <h5 class="product-size" *ngIf="categoryProduct?.Stone != ''" (click)="showModal3(categoryProduct?.id)">{{ categoryProduct?.Stone?.stone_colour }}/ {{categoryProduct?.Stone?.stone_clarity}}</h5> -->
+                      <h5 class="product-size" *ngIf="categoryProduct?.Stone != ''">{{categoryProduct?.product_basic_details}}</h5>
+                     
+                      <h6 class="product-price">${{ categoryProduct.price }} USD</h6>
+                    </div>
+                    <div class="product-overlay">
+                      <div class="owner-img">
+                        <nz-avatar
+                          nzIcon="user"
+                          [nzSize]="100"
+                          nzSrc="{{ categoryProduct.owner_thumbnail_image }}"
+                        ></nz-avatar>
+                      </div>
+                      <div class="owner-des">
+                        <h4>{{ categoryProduct.owner_name }}</h4>
+                        <hr />
+                        <p>{{ categoryProduct.description }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End -->
+              </div>
+            </div>
+            <!-- Category End -->
+            <!-- Category Start - Raw-->
+         
+          </div>
+          <div class="filter-sidebar {{productPageLoading ? 'removeZIndex' : ''}}">
+            <div class="selected-filters">
+              <ul>
+                <li (click)="clearFilter(0)">
+                  <a>Clear All</a>
+                </li>
+                <!-- <li>
+                  <span><a>x</a>Rings</span>
+                </li> -->
+              </ul>
+            </div>
+            <div class="filters-options">
+              <a class="close-btn" (click)="shopAllFilterClose($event)">
+                <img src="../../../assets/img/close-light.svg" />
+              </a>
+              <div class="filter-accordian">
+                <nz-collapse nzAccordion nzExpandIconPosition="right">
+                  <!-- <nz-collapse-panel nzHeader="Category" nzActive="false">
+                    <div class="checkbox-list">
+                      <nz-checkbox-group
+                        [(ngModel)]="categoryFilter"
+                        (ngModelChange)="categoryOnChange($event)"
+                      ></nz-checkbox-group>
+                    </div>
+                  </nz-collapse-panel> -->
+                  <nz-collapse-panel nzHeader="Price" nzActive="false">
+                    <div class="range-value">
+                      <div class="left">
+                        <span>Min</span>
+                        <p class="value">${{filters?.price?.min}}</p>
+                      </div>
+                      <div class="right">
+                        <span>Max</span>
+                        <p class="value">${{filters?.price?.max}}</p>
+                      </div>
+                    </div>
+                    <nz-slider
+                      nzRange
+                      [nzMax]="filters?.price?.max"
+                      [nzMin]="filters?.price?.min"
+                      nzTooltipVisible="never"
+                      [(ngModel)]="rangeValue"
+                      (ngModelChange)="rangeOnChange($event)"
+                    ></nz-slider>
+                  </nz-collapse-panel>
+                  <nz-collapse-panel nzHeader="Metal" nzActive="false">
+                    <div class="checkbox-list">
+                      <nz-checkbox-group
+                        [(ngModel)]="metalFilter"
+                        (ngModelChange)="metalOnChange($event)"
+                      ></nz-checkbox-group>
+                    </div>
+                  </nz-collapse-panel>
+                  <nz-collapse-panel nzHeader="Style" nzActive="false">
+                    <div class="checkbox-list">
+                      <nz-checkbox-group
+                        [(ngModel)]="styleFilter"
+                        (ngModelChange)="styleOnChange($event)"
+                      ></nz-checkbox-group>
+                    </div>
+                  </nz-collapse-panel>
+                </nz-collapse>
+                <button nz-button nzType="primary" (click)="applyFilter('')" nzBlock>Apply Filter</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Category End -->
+      </nz-tab>
+     
+      <nz-tab (nzClick)='clearFilter(categoryProduct.term_id);openLink(categoryProduct.name)' nzTitle={{categoryProduct.name}}  *ngFor="let categoryProduct of categoryWiseProduct">
+        
+        <div
+          class="heading-filter-btn d-flex justify-content-between align-items-center"
+        >
+          <h3 class="heading">Storied Diamonds</h3>
+        </div>
+        <nz-tabset class="inner-tabs" (click)="getCategoryId(categoryProduct.term_id)">
+         
+            <!-- Category Start - Rings-->
+          <nz-tab nzTitle="{{categoryProduct.name}}" >
+            <p class="'no_data_found" *ngIf="categoryProduct.products.length === 0"> No Data Found in {{categoryProduct.name}} category</p>
+            <!-- Category Start -Polish -->
+            <div class="category-outer polishedFilter">
+              <div class="category-listing">
+                <!-- Listing  -->
+                <div class="inner-wrap">
+                  <div class="category-wrap" *ngFor="let polish of categoryProduct.products">
+                    <!-- <p *ngIf="polish.products.length === 0"> No Data Found in {{polish.name}} category</p> -->
+                    <div class="product-img">
+                      <figure>
+                        <img src="{{ polish.image }}" alt="" />
+                      </figure>
+                    </div>
+                    <div class="product-description" (click)="showModal3(polish)">
+                      <h4 class="product-name" >
+                        {{ polish.name }}
+                      </h4>
+                      <h5 class="product-size" >{{ polish?.product_basic_details }}</h5>
+                      <h6 class="product-price" >${{ polish?.price }} USD</h6>
+                    </div>
+                    <div class="product-overlay">
+                      <div class="owner-img">
+                        <nz-avatar
+                          nzIcon="user"
+                          [nzSize]="100"
+                          nzSrc="{{ polish.owner_thumbnail_image }}"
+                        ></nz-avatar>
+                      </div>
+                      <div class="owner-des">
+                        <h4>{{ polish.owner_name }}</h4>
+                        <hr />
+                        <p>{{ polish.description }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End -->
+              </div>
+              
+              <div class="filter-sidebar">
+                <a class="filter-btn" (click)="polishedFilter($event)">
+                  <img src="../../../assets/img/filter.svg" />
+                  Filter
+                </a>
+                <div class="selected-filters">
+                  <ul>
+                    <li (click)="clearFilter(0)">
+                      <a>Clear All</a>
+                    </li>
+                    <!-- <li>
+                      <span><a>x</a>18k Yellow Gold</span>
+                    </li>
+                    <li>
+                      <span><a>x</a>Half Eternity</span>
+                    </li> -->
+                  </ul>
+                </div>
+                <div class="filters-options">
+                  <a class="close-btn" (click)="polishedFilterClose($event)">
+                    <img src="../../../assets/img/close-light.svg" />
+                  </a>
+                  <div class="filter-accordian">
+                    <nz-collapse nzAccordion nzExpandIconPosition="right">
+                      <nz-collapse-panel nzHeader="Price" nzActive="false">
+                        <div class="range-value">
+                          <div class="left">
+                            <span>Min</span>
+                            <p class="value">${{filters?.price?.min}}</p>
+                          </div>
+                          <div class="right">
+                            <span>Max</span>
+                            <p class="value">${{filters?.price?.max}}</p>
+                          </div>
+                        </div>
+                        <nz-slider
+                          nzRange
+                          [nzMax]="filters?.price?.max"
+                          [nzMin]="filters?.price?.min"
+                          nzTooltipVisible="never"
+                          [(ngModel)]="rangeValue"
+                          (ngModelChange)="rangeOnChange($event)"
+                        ></nz-slider>
+                      </nz-collapse-panel>
+                      
+                      <nz-collapse-panel nzHeader="Metal" nzActive="false">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="metalFilter"
+                            (ngModelChange)="metalOnChange($event)"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Style" nzActive="false">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="styleFilter"
+                            (ngModelChange)="styleOnChange($event)"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                    </nz-collapse>
+                    <button nz-button nzType="primary"  (click)="applyFilter(categoryProduct.term_id)"  nzBlock>
+                      Apply Filter
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="filter-sidebar">
+                <a class="filter-btn" (click)="polishedFilter($event)">
+                  <img src="../../../assets/img/filter.svg" />
+                  Filter
+                </a>
+                <div class="selected-filters">
+                  <ul>
+                    <li>
+                      <a>Clear All</a>
+                    </li>
+                    <li>
+                      <span><a>x</a>18k Yellow Gold</span>
+                    </li>
+                    <li>
+                      <span><a>x</a>Half Eternity</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="filters-options">
+                  <a class="close-btn" (click)="polishedFilterClose($event)">
+                    <img src="../../../assets/img/close-light.svg" />
+                  </a>
+                  <div class="filter-accordian">
+                    <nz-collapse nzAccordion nzExpandIconPosition="right">
+                      <nz-collapse-panel nzHeader="Price" nzActive="false">
+                        <div class="range-value">
+                          <div class="left">
+                            <span>Min</span>
+                            <p class="value">$1000</p>
+                          </div>
+                          <div class="right">
+                            <span>Max</span>
+                            <p class="value">$5500</p>
+                          </div>
+                        </div>
+                        <nz-slider
+                          nzRange
+                          nzTooltipVisible="never"
+                          [(ngModel)]="rangeValue"
+                        ></nz-slider>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Metal" nzActive="false">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="filterMetal"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Style" nzActive="false">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="filterStyle"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                    </nz-collapse>
+                    <button nz-button nzType="primary" nzBlock>
+                      Apply Filter
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+    
+              <!-- <div class="filter-sidebar">
+                <a class="filter-btn" (click)="polishedFilter($event)">
+                  <img src="../../../assets/img/filter.svg" />
+                  Filter
+                </a>
+                <div class="selected-filters">
+                  <ul>
+                    <li>
+                      <a>Clear All</a>
+                    </li>
+                    <li>
+                      <span><a>x</a>18k Yellow Gold</span>
+                    </li>
+                    <li>
+                      <span><a>x</a>Half Eternity</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="filters-options">
+                  <a class="close-btn" (click)="polishedFilterClose($event)">
+                    <img src="../../../assets/img/close-light.svg" />
+                  </a>
+                  <div class="filter-accordian">
+                    <nz-collapse nzAccordion nzExpandIconPosition="right">
+                      <nz-collapse-panel nzHeader="Price" nzActive="false">
+                        <div class="range-value">
+                          <div class="left">
+                            <span>Min</span>
+                            <p class="value">$1000</p>
+                          </div>
+                          <div class="right">
+                            <span>Max</span>
+                            <p class="value">$5500</p>
+                          </div>
+                        </div>
+                        <nz-slider
+                          nzRange
+                          nzTooltipVisible="never"
+                          [(ngModel)]="rangeValue"
+                        ></nz-slider>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Metal" nzActive="false">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="filterMetal"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Style" nzActive="false">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="filterStyle"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                    </nz-collapse>
+                    <button nz-button nzType="primary" nzBlock>
+                      Apply Filter
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+            <!-- Category End -->
+          </nz-tab>
+       
+        </nz-tabset>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+<!-- =============== shop section end =============== -->
+
+<!-- ===============Product Modal Start Here =============== -->
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle=""
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  nzFooter="null"
+  nzCentered="true"
+  nzClassName="product-modal"
+  nzWidth="1440px"
+>
+  <ng-container *nzModalContent>
+    <div class="product-inner">
+      <div class="product-carousel">
+        <ngx-slick-carousel
+          class="pro-carousel"
+          #slickModal="slick-carousel"
+          [config]="productSlider"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productSlide of productSlides"
+          >
+            <figure>
+              <img 
+                src="{{ productSlide.img }}"
+                alt="{{ productSlide.alt }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+        <ngx-slick-carousel
+          class="pro-carousel-thumbnail"
+          #slickModal="slick-carousel"
+          [config]="productSliderThumbnail"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productSlide of productSlides"
+          >
+            <figure>
+              <img 
+                src="{{ productSlide.img }}"
+                alt="{{ productSlide.alt }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+      <div class="product-description">
+        <h4 class="title">Classic Signature Ring</h4>
+        <div class="pro-description">
+          <p>
+            This solitaire ring underscores the focal stone with a graceful
+            poise that nods to tradition and modernity alike. 0.63 carat diamond
+            ring.
+          </p>
+          <p>
+            *Our qualified gemologist graded the diamond. If you wish to get a
+            GIA grading, please check the box below for an additional $150.
+          </p>
+        </div>
+        <label nz-checkbox>GIA Diamond Grading</label>
+        <div class="pro-button-price">
+          <button nz-button nzType="primary" nzSize="large">Buy now</button>
+          <h4 class="pro-price">$<span>3,495.00</span></h4>
+        </div>
+        <div class="pro-specifications not-tab">
+          <h4>Product Details</h4>
+          <!-- <h5>Materials & Specification</h5> -->
+          <div class="pro-specification-inner">
+            <h5>STONE:</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Gemstone<span>:</span></td>
+                  <td>Diamond</td>
+                </tr>
+                <tr>
+                  <td>Stone Shape<span>:</span></td>
+                  <td>Round</td>
+                </tr>
+                <tr>
+                  <td>Carat<span>:</span></td>
+                  <td>0.63</td>
+                </tr>
+                <tr>
+                  <td>Stone Colour<span>:</span></td>
+                  <td>M</td>
+                </tr>
+                <tr>
+                  <td>Stone Clarity<span>:</span></td>
+                  <td>SI2</td>
+                </tr>
+                <tr>
+                  <td>Stone Cut<span>:</span></td>
+                  <td>Ideal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pro-specification-inner">
+            <h5>DESIGN:</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Metal<span>:</span></td>
+                  <td>18k Yellow Gold</td>
+                </tr>
+                <tr>
+                  <td>Style<span>:</span></td>
+                  <td>Solitaire</td>
+                </tr>
+                <tr>
+                  <td>Setting<span>:</span></td>
+                  <td>Classic</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-specifications for-tab">
+      <h4>Product Details</h4>
+      <h5>Materials & Specification</h5>
+      <div class="pro-specification-inner">
+        <h5>STONE:</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Gemstone<span>:</span></td>
+              <td>Diamond</td>
+            </tr>
+            <tr>
+              <td>Stone Shape<span>:</span></td>
+              <td>Round</td>
+            </tr>
+            <tr>
+              <td>Carat<span>:</span></td>
+              <td>0.63</td>
+            </tr>
+            <tr>
+              <td>Stone Colour<span>:</span></td>
+              <td>M</td>
+            </tr>
+            <tr>
+              <td>Stone Clarity<span>:</span></td>
+              <td>SI2</td>
+            </tr>
+            <tr>
+              <td>Stone Cut<span>:</span></td>
+              <td>Ideal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pro-specification-inner">
+        <h5>DESIGN:</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Metal<span>:</span></td>
+              <td>18k Yellow Gold</td>
+            </tr>
+            <tr>
+              <td>Style<span>:</span></td>
+              <td>Solitaire</td>
+            </tr>
+            <tr>
+              <td>Setting<span>:</span></td>
+              <td>Classic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>
+<!-- Earing -->
+<nz-modal
+  [(nzVisible)]="isVisible2"
+  nzTitle=""
+  (nzOnCancel)="handleCancel2()"
+  (nzOnOk)="handleOk2()"
+  nzFooter="null"
+  nzCentered="true"
+  nzClassName="product-modal"
+  nzWidth="1440px"
+>
+  <ng-container *nzModalContent>
+    <div class="product-inner">
+      <div class="product-carousel">
+        <ngx-slick-carousel
+          class="pro-carousel"
+          #slickModal="slick-carousel"
+          [config]="productSlider"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productEarring of productEarrings"
+          >
+            <figure>
+              <img 
+                src="{{ productEarring.img }}"
+                alt="{{ productEarring.alt }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+        <ngx-slick-carousel
+          class="pro-carousel-thumbnail"
+          #slickModal="slick-carousel"
+          [config]="productSliderThumbnail"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productEarring of productEarrings"
+          >
+            <figure>
+              <img
+                src="{{ productEarring.img }}"
+                alt="{{ productEarring.alt }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+      <div class="product-description">
+        <h4 class="title">4-Prong Cocktail Earrings</h4>
+        <div class="pro-description">
+          <p>
+            This solitaire ring underscores the focal stone with a graceful poise that nods to tradition and modernity alike. 0.63 carat diamond ring. 
+          </p>
+          <p>
+            *Our qualified gemologist graded the diamond. If you wish to get a GIA grading, please check the box below for an additional $150.
+          </p>
+        </div>
+        <label nz-checkbox>GIA Diamond Grading</label>
+        <div class="pro-button-price">
+          <button nz-button nzType="primary" nzSize="large">Buy now</button>
+          <h4 class="pro-price">$<span>3,495.00</span></h4>
+        </div>
+        <div class="pro-specifications not-tab">
+          <h4>Product Details</h4>
+          <h5>Materials & Specification</h5>
+          <div class="pro-specification-inner">
+            <h5>STONE:</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Gemstone<span>:</span></td>
+                  <td>Diamond</td>
+                </tr>
+                <tr>
+                  <td>Stone Shape<span>:</span></td>
+                  <td>Round</td>
+                </tr>
+                <tr>
+                  <td>Carat<span>:</span></td>
+                  <td>1 x 0.45ct & 1 x 0.45ct</td>
+                </tr>
+                <tr>
+                  <td>Stone Colour<span>:</span></td>
+                  <td>F</td>
+                </tr>
+                <tr>
+                  <td>Stone Clarity<span>:</span></td>
+                  <td>VSS</td>
+                </tr>
+                <tr>
+                  <td>Stone Cut<span>:</span></td>
+                  <td>Ideal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pro-specification-inner">
+            <h5>DESIGN:</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Metal<span>:</span></td>
+                  <td>18k White Gold</td>
+                </tr>
+                <tr>
+                  <td>Style<span>:</span></td>
+                  <td>4-Prong</td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-specifications for-tab">
+      <h4>Product Details</h4>
+      <h5>Materials & Specification</h5>
+      <div class="pro-specification-inner">
+        <h5>STONE:</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Gemstone<span>:</span></td>
+              <td>Diamond</td>
+            </tr>
+            <tr>
+              <td>Stone Shape<span>:</span></td>
+              <td>Round</td>
+            </tr>
+            <tr>
+              <td>Carat<span>:</span></td>
+              <td>1 x 0.45ct & 1 x 0.45ct</td>
+            </tr>
+            <tr>
+              <td>Stone Colour<span>:</span></td>
+              <td>F</td>
+            </tr>
+            <tr>
+              <td>Stone Clarity<span>:</span></td>
+              <td>VSS</td>
+            </tr>
+            <tr>
+              <td>Stone Cut<span>:</span></td>
+              <td>Ideal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pro-specification-inner">
+        <h5>DESIGN:</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Metal<span>:</span></td>
+              <td>18k White Gold</td>
+            </tr>
+            <tr>
+              <td>Style<span>:</span></td>
+              <td>4-Prong</td>
+            </tr> 
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>
+<!-- Polished -->
+<nz-modal
+  [(nzVisible)]="isVisible3"
+  nzTitle=""
+  (nzOnCancel)="handleCancel3()"
+  (nzOnOk)="handleOk3()"
+  nzFooter="null"
+  nzCentered="true"
+  nzClassName="product-modal"
+  nzWidth="1440px"
+>
+
+  <ng-container *nzModalContent>
+    <div class="product-inner">
+      <div class="product-carousel">
+        <ngx-slick-carousel 
+        class="carousel feedback pro-carousel" 
+        #slickModal="slick-carousel" 
+        [config]="imagesSlider">
+        <div ngxSlickItem *ngFor="let slide of productDetail.gallery" class="slide">
+          <figure class="video_figure">
+                <img *ngIf="slide?.type == 'image' " src="{{ slide?.url }}" alt="" width="100%">
+                <div class="popup">
+                  <video *ngIf="slide?.type == 'video' " src="{{slide?.url}}" controls (canplay)="pauseVideo(videoplayer)" #videoPlayer>
+                </video>
+                </div>
+          </figure>
+        </div>
+    </ngx-slick-carousel>
+    <!-- product-carousel -->
+    <!-- client-thumbnails -->
+    <ngx-slick-carousel 
+      class="carousel thumbs pro-carousel-thumbnail" 
+      #slickModal="slick-carousel" 
+      [config]="thumbnailsSlider ">
+      <div ngxSlickItem *ngFor="let thumb of productDetail.gallery" class="slide">
+        <figure>
+              <img *ngIf="thumb?.type == 'image' "  width="100%" src="{{ thumb?.url }}" alt="">
+              <img *ngIf="thumb?.type == 'video' "  width="100%" src="{{ thumb?.thumbnail }}" alt="">
+        </figure>
+      </div>
+  </ngx-slick-carousel>
+        <!-- <ngx-slick-carousel
+          class="pro-carousel"
+          #slickModal="slick-carousel"
+          [config]="productSlider"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productPolish of productPolishs"
+          >
+            <figure class="video_figure">
+              <img
+                (click)="showModal()"
+                src="{{ productDetail.image }}"
+                alt="{{ productDetail.alt }}"
+                width="100%"
+                *ngIf="videoSource === '' ? true : false"
+              />
+              <div     class="popup">
+                <video *ngIf="videoSource === '' ? false : true" src="{{videoSource?.url}}" controls (canplay)="pauseVideo(videoplayer)" #videoPlayer>
+                </video>
+              </div>
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+        <ngx-slick-carousel
+          class="pro-carousel-thumbnail"
+          #slickModal="slick-carousel"
+          [config]="productSliderThumbnail"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let image of productDetail.gallery"
+          >
+            <figure >
+              <img 
+                src="{{ image }}"
+                alt="{{ image }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel> -->
+      </div>
+      <div class="product-description remove-space">
+        <h4 class="title">{{productDetail.name}}</h4>
+        <div class="pro-description">
+          <p>
+            {{productDetail.p_description}}
+          </p>
+          <p>
+            {{productDetail?.variable_description}}
+          </p>
+        </div>
+        <label class="video-buy" nz-checkbox ng-checked="isWholeSaleChecked" *ngIf="productDetail.is_variable" (change)="changeValue($event)">GIA Diamond Grading</label>
+        <div *ngIf="productDetail?.price != ''" class="pro-button-price">
+          <button *ngIf="productDetail?.price != ''" class="{{productDetail?.stock == 'outofstock' ? 'outOfStock' : ''}} " disabled="{{productDetail?.stock == 'outofstock' ? true: false}}" (click)="wholeSaleChange(fillWholeSaleForm,newPrice)"  nz-button nzType="primary" nzSize="large">{{productDetail?.stock == 'outofstock' ?  "Sold Out" : "Buy Now"}}</button>
+          <h4  *ngIf="!fillWholeSaleForm && productDetail?.price != ''"class="pro-price">$<span>{{isWholeSaleChecked ? productDetail?.sales_price_for_variation : productDetail?.price }}</span></h4>
+          <h4  *ngIf="fillWholeSaleForm"  class="pro-price">$<span>{{isWholeSaleChecked ? productDetail?.wholesale_price_for_variation : productDetail?.whole_sale_price}}</span></h4>
+         <button disabled="{{productDetail?.stock == 'outofstock' ? true: false}}"  *ngIf="productDetail?.stock === 'outofstock' ? false : !fillWholeSaleForm"  (click)="showModalWholeSale()"   nz-button nzType="primary" class="buy-now-btn" nzSize="large">{{productDetail?.stock === 'outofstock' ?  "Sold Out" : "Buy As WholeSeller"}}</button>
+        </div>
+        <div class="pro-specifications">
+          <h4>Product Details</h4>
+          <!-- <h5>Materials & Specification</h5> -->
+          <div *ngIf="productDetail?.Stone === '' ? false : true" class="pro-specification-inner">
+            <h5>STONE:</h5>
+            <table>
+              <tbody>
+                <tr *ngIf="productDetail?.Stone?.gemstone === '' ? false : true">
+                  <td>Gemstone<span>:</span></td>
+                  <td> {{productDetail?.Stone?.gemstone}}</td>
+                </tr>
+                <tr *ngIf="productDetail?.Stone?.stone_shape === '' ? false : true">
+                  <td>Stone Shape<span>:</span></td>
+                  <td> {{productDetail?.Stone?.stone_shape}}</td>
+                </tr>
+                <tr *ngIf="productDetail?.Stone?.carat === '' ? false : true">
+                  <td>Carat<span>:</span></td>
+                  <td> {{productDetail?.Stone?.carat}}</td>
+                </tr>
+                <tr *ngIf="productDetail?.Stone?.stone_colour === '' ? false : true">
+                  <td>Stone Colour<span>:</span></td>
+                  <td> {{productDetail?.Stone?.stone_colour}}</td>
+                </tr>
+                <tr  *ngIf="productDetail?.Stone?.stone_clarity === '' ? false : true">
+                  <td>Stone Clarity<span>:</span></td>
+                  <td> {{productDetail?.Stone?.stone_clarity}}</td>
+                </tr>
+                <tr *ngIf="productDetail?.Stone?.stone_cut === '' ? false : true" >
+                  <td>Stone Cut<span>:</span></td>
+                  <td> {{productDetail?.Stone?.stone_cut}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div  *ngIf="productDetail?.Design === '' ? false : true" class="pro-specification-inner">
+            <h5>DESIGN:</h5>
+            <table>
+              <tbody>
+                <tr *ngIf="productDetail?.Design?.metal === '' ? false : true">
+                  <td>Metal<span>:</span></td>
+                  <td> {{productDetail?.Design?.metal}}</td>
+                </tr>
+                <tr *ngIf="productDetail?.Design?.style === '' ? false : true">
+                  <td>Style<span>:</span></td>
+                  <td>{{productDetail?.Design?.style}}</td>
+                </tr>
+                <tr *ngIf="productDetail?.Design?.setting === '' ? false : true">
+                  <td>Setting<span>:</span></td>
+                  <td>{{productDetail?.Design?.setting}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="productPageLoading"  class="spinner-class">
+      <div class="loader">
+      </div>
+      </div>
+  </ng-container>
+</nz-modal>
+<!-- Raw -->
+<nz-modal
+  [(nzVisible)]="isVisible4"
+  nzTitle=""
+  (nzOnCancel)="handleCancel4()"
+  (nzOnOk)="handleOk4()"
+  nzFooter="null"
+  nzCentered="true"
+  nzClassName="product-modal"
+  nzWidth="1440px"
+>
+  <ng-container *nzModalContent>
+    <div class="product-inner">
+      <div class="product-carousel">
+        <ngx-slick-carousel
+          class="pro-carousel"
+          #slickModal="slick-carousel"
+          [config]="productSlider"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productRaw of productRaws"
+          >
+            <figure>
+              <img 
+                src="{{ productRaw.img }}"
+                alt="{{ productRaw.alt }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+        <ngx-slick-carousel
+          class="pro-carousel-thumbnail"
+          #slickModal="slick-carousel"
+          [config]="productSliderThumbnail"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+            *ngFor="let productRaw of productRaws"
+          >
+            <figure>
+              <img 
+                src="{{ productRaw.img }}"
+                alt="{{ productRaw.alt }}"
+                width="100%"
+              />
+            </figure>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+      <div class="product-description">
+        <h4 class="title">Raw Diamonds</h4>
+        <div class="pro-description">
+          <p>
+            This solitaire ring underscores the focal stone with a graceful poise that nods to tradition and modernity alike. 0.63 carat diamond ring. 
+          </p>
+          <p>
+            *Our qualified gemologist graded the diamond. If you wish to get a GIA grading, please check the box below for an additional $150.
+          </p>
+        </div>
+        <label nz-checkbox>GIA Diamond Grading</label>
+        <div class="pro-button-price">
+          <button nz-button nzType="primary" nzSize="large">Buy now</button>
+          <h4 class="pro-price">$<span>3,495.00</span></h4>
+        </div>
+        <div class="pro-specifications not-tab">
+          <h4>Product Details</h4>
+          <h5>Materials & Specification</h5>
+          <div class="pro-specification-inner">
+            <h5>STONE:</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Gemstone<span>:</span></td>
+                  <td>Diamond</td>
+                </tr>
+                <tr>
+                  <td>Stone Shape<span>:</span></td>
+                  <td>Round</td>
+                </tr>
+                <tr>
+                  <td>Carat<span>:</span></td>
+                  <td>1 x 0.45ct & 1 x 0.45ct</td>
+                </tr>
+                <tr>
+                  <td>Stone Colour<span>:</span></td>
+                  <td>F</td>
+                </tr>
+                <tr>
+                  <td>Stone Clarity<span>:</span></td>
+                  <td>VSS</td>
+                </tr>
+                <tr>
+                  <td>Stone Cut<span>:</span></td>
+                  <td>Ideal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pro-specification-inner">
+            <h5>DESIGN:</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Metal<span>:</span></td>
+                  <td>18k White Gold</td>
+                </tr>
+                <tr>
+                  <td>Style<span>:</span></td>
+                  <td>4-Prong</td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-specifications for-tab">
+      <h4>Product Details</h4>
+      <h5>Materials & Specification</h5>
+      <div class="pro-specification-inner">
+        <h5>STONE:</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Gemstone<span>:</span></td>
+              <td>Diamond</td>
+            </tr>
+            <tr>
+              <td>Stone Shape<span>:</span></td>
+              <td>Round</td>
+            </tr>
+            <tr>
+              <td>Carat<span>:</span></td>
+              <td>1 x 0.45ct & 1 x 0.45ct</td>
+            </tr>
+            <tr>
+              <td>Stone Colour<span>:</span></td>
+              <td>F</td>
+            </tr>
+            <tr>
+              <td>Stone Clarity<span>:</span></td>
+              <td>VSS</td>
+            </tr>
+            <tr>
+              <td>Stone Cut<span>:</span></td>
+              <td>Ideal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pro-specification-inner">
+        <h5>DESIGN:</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Metal<span>:</span></td>
+              <td>18k White Gold</td>
+            </tr>
+            <tr>
+              <td>Style<span>:</span></td>
+              <td>4-Prong</td>
+            </tr> 
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>
+<nz-modal
+  [(nzVisible)]="isWholeSaleVisible"
+  nzTitle=""
+  (nzOnCancel)="handleWholeSaleCancle()"
+  (nzOnOk)="handleOk()"
+  nzFooter="null"
+  nzCentered="true"
+  nzClassName="product-modal"
+  nzWidth="1440px"
+>
+  <ng-container *nzModalContent>
+    <div class="product-inner">
+      <div class="product-carousel carousel-full-width">
+        <!-- <ngx-slick-carousel
+          class="pro-carousel"
+          #slickModal="slick-carousel"
+          [config]="productSlider"
+        >
+          <div
+            ngxSlickItem
+            class="slide"
+          > -->
+          <figure>
+          <div class="row">
+            <div class="col-md-4">
+              <h1 class="rd-mb-5 fade-top">  Company Details </h1>
+            </div>
+              <div class="col-md-8">
+                <form class="form_block" [formGroup]="checkWholeSaleForm" (ngSubmit)="onSubmitWholeSale(true)" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating open_input_check">
+                                <input type="text" class="form-control" id="floatingInput"
+                                    formControlName="full_name"
+                                    required>
+                                <label for="floatingInput">Your Full Name</label>
+                            </div>
+
+                            <div class="form-floating open_input_check">
+                              <input type="text" class="form-control" id="floatingInput"
+                                  formControlName="company_name"
+                                  required>
+                              <label for="floatingInput">Company  Name </label>
+                          </div>
+
+                          <div class="form-floating open_input_check">
+                            <input type="text" class="form-control" id="floatingInput"
+                               formControlName="tax_no"
+                                required>
+                            <label for="floatingInput">Tax ID/EIN  #/Business License </label>
+                        </div>
+
+                        <div class="form-floating open_input_check">
+                          <input type="text" class="form-control" id="floatingInput"
+                              placeholder="Email "  formControlName="company_email"
+                              required>
+                          <label for="floatingInput">Email </label>
+                      </div>
+                      <button   nz-button nzType="primary" class="buy-now-btn" nzSize="large"  type="submit">Next</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+          </figure>
+          <!-- </div>
+        </ngx-slick-carousel> -->
+       
+      </div>
+    </div>
+  </ng-container>
+</nz-modal> 
+<!-- =============== Product Modal End Here =============== -->

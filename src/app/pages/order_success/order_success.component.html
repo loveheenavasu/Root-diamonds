@@ -1,0 +1,53 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="top-bar d-flex justify-content-end">
+
+            <!-- <a href="#" class="signout_link text_link">SIGN OUT</a> -->
+        </div>
+
+        <div class="thanku-inner">
+
+            <h2 class="cart_title text-center">
+                THANK YOU!<br>
+                YOUR ORDER IS SUCCESSFULLY PLACED
+            </h2>
+            <div class="cart-block m-auto">
+                <div class="cart_img mb-4">
+                    <div class="row d-flex align-items-center ">
+                        <div class="col-4">
+                            <div class="ring">
+                                <img src={{checkoutProduct?.image}} alt="ring" class="img-fluid order_img">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-4 p-0">
+                            <div class="cart_img_border"></div>
+                        </div>
+                        <div class="col-sm-4 col-4 ps-0">
+                            <div class="africa ms-auto">
+                                <img src={{checkoutProduct?.owner_image}} alt="africa" class="img-fluid mb-2 order_img">
+                                <p class="aftrica_txt text-center text-white">{{checkoutProduct?.owner_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="cart-border">
+                <div class="cart_innr m-0">
+                    <h3 class="cart_subtitle text-center">{{checkoutProduct?.name}}</h3>
+                    <p class="text-center small_title mb-2">{{checkoutProduct?.Design?.metal && checkoutProduct?.Design?.metal +  ','}} {{checkoutProduct?.Design?.style &&  checkoutProduct?.Design?.style + ','}} {{ checkoutProduct?.Stone?.stone_clarity && 'Color/Clarity:' + checkoutProduct?.Stone?.stone_clarity}}{{checkoutProduct?.Stone?.stone_colour && '/' + checkoutProduct?.Stone?.stone_colour}}</p>
+                    <p *ngIf="checkoutProduct?.total != ''" class="thanku_price text-center m-0">{{checkoutProduct?.total}}</p>
+                </div>
+
+            </div>
+            <div class="thanku_bottom text-center">
+                <p class="order_details text-white">
+                    Your order details has been sent your mail. And we will keep you updated on your order status
+                    through your mail.
+                </p>
+                <button   [routerLink]="['/category/0/0']" type="submit" class="btn-block order-btn">CONTINUE SHOPPING</button>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

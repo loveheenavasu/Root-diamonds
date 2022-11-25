@@ -1,0 +1,263 @@
+<div class="wrapper">
+    <div class="container">
+        <div *ngIf="productPageLoading"  class="spinner-class">
+            <div class="loader">
+            </div>
+            </div>
+        <div class="top-bar d-flex justify-content-between">
+            <a (click)="changeRoute()"  class="back_link text_link d-flex align-items-center"><img src="../../../assets/img/cart/arrow-left.svg"
+                    alt="arrow"></a>
+            <!-- <a href="#" class="signout_link text_link">SIGN OUT</a> -->
+        </div>
+
+        <div class="secure_header">
+            <h2 class="cart_title">Secure Checkout</h2>
+            <p class="inner_txt mb-0"><span class="yellow_color">FREE DELIVERY</span> on all UK and international orders </p>
+        </div>
+
+        <div class="inner_block">
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form_block" #form="ngForm" [formGroup]="checkForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-6 pe-md-2">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="first_name" id="floatingInput"
+                                        placeholder="First Name*"  formControlName="first_name"
+                                        (keypress)='checkValidate()'
+                                        ngClass="{'is-invalid':submitted && checkForm.controls.first_name.errors}"
+                                        required>
+                                        <div
+                                    *ngIf="submitted && checkForm.controls.first_name.errors "
+                                    class="text-danger"
+                                >
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.first_name.errors.required && checkForm.controls.first_name.touched"
+                                    >
+                                    First Name field is required
+                                    </div>
+                                </div>
+                                    <label for="floatingInput">First Name<span>*</span></label>
+                                </div>
+                                
+                            </div>
+
+                            <div class="col-md-6 ps-md-2">
+                                <div class="form-floating">
+                                    <input name="last_name" 
+                                    (keypress)='checkValidate()'
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.last_name.errors}"
+                                    type="text" class="form-control" id="floating1" placeholder="Last Name*" formControlName="last_name" required>
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.last_name.errors"
+                                    class="text-danger"
+                                >
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.last_name.errors.required && checkForm.controls.last_name.touched"
+                                    >
+                                    Last Name field is required
+                                    </div>
+                                </div>
+                                    <label for="floating1">Last Name<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floating2"
+                                    name="country" 
+                                    (keypress)='checkValidate()'
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.country.errors}"
+                                        placeholder="Country/Region*" formControlName="country">
+                                        <div
+                                    *ngIf="submitted && checkForm.controls.country.errors"
+                                    class="text-danger"
+                                >
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.country.errors.required && checkForm.controls.country.touched"
+                                    >
+                                    Country field is required
+                                    </div>
+                                    </div>
+                                    <label for="floating2">Country/Region<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text"
+                                    name="address_1" 
+                                    (keypress)='checkValidate()'
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.address_1.errors}" class="form-control" id="floating3"
+                                        placeholder="Street Address*" formControlName="address_1">
+                                        <div
+                                    *ngIf="submitted && checkForm.controls.address_1.errors"
+                                    class="text-danger"
+                                >
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.address_1.errors.required && checkForm.controls.address_1.touched"
+                                    >
+                                    Address field is required
+                                    </div>
+                                    </div>
+                                    <label for="floating3">Street Address<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text"
+                                    name="city" 
+                                    (keypress)='checkValidate()'
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.city.errors}" 
+                                     class="form-control" id="floating4" placeholder="Town/City*" formControlName="city">
+                                     <div
+                                    *ngIf="submitted && checkForm.controls.city.errors"
+                                    class="text-danger"
+                                >
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.city.errors.required  && checkForm.controls.city.touched"
+                                    >
+                                    City field is required
+                                    </div>
+                                    </div>
+                                    <label for="floating4">Town/City<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text" 
+                                    name="state" 
+                                    (keypress)='checkValidate()'
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.state.errors}" 
+                                     class="form-control" id="floating5" placeholder="State*" formControlName="state">
+                                     <div
+                                     *ngIf="submitted && checkForm.controls.state.errors"
+                                     class="text-danger"
+                                 >
+                                     <div
+                                     *ngIf="submitted && checkForm.controls.state.errors.required && checkForm.controls.state.touched"
+                                     >
+                                     State field is required
+                                     </div>
+                                     </div>
+                                    <label for="floating5">State<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text"
+                                    name="postcode" 
+                                    type="number"
+                                    min="0"
+                                    (keypress)='checkValidate()'
+                                    onwheel="this.blur()"
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.postcode.errors}" 
+                                     class="form-control" id="floating6" placeholder="Zip Code*" formControlName="postcode">
+                                     <div
+                                     *ngIf="submitted && checkForm.controls.postcode.errors && checkForm.controls.postcode.touched"
+                                     class="text-danger"
+                                 >
+                                     <div
+                                     *ngIf="submitted && checkForm.controls.postcode.errors.required"
+                                     >
+                                     Zip field is required
+                                     </div>
+                                     </div>
+                                    <label for="floating6">Zip Code<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text"
+                                    name="email" 
+                                    type="email"
+                                    (keypress)='checkValidate()'
+                                    ngClass="{'is-invalid':submitted && checkForm.controls.email.errors}" 
+                                     class="form-control" id="floating7" placeholder="Email Address*" formControlName="email">
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.email.errors && checkForm.controls.email.touched "
+                                    class="text-danger"
+                                >
+                                    <div
+                                    *ngIf="submitted && checkForm.controls.email.errors.required"
+                                    >
+                                    Email field is required
+                                    </div>
+                                    <!-- <div *ngIf="checkForm.controls.email.errors.email">Email must be a valid email address</div> -->
+                                    </div>
+                                    <label for="floating7">Email Address<span>*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 payment-container">
+                                <div class="payment-button"><ngx-paypal [config]="payPalConfig"></ngx-paypal></div>
+                                <button type="submit" class="btn-block order-btn {{ productPageLoading ? 'add_z_index' : ''}} {{checkForm.invalid ? 'diable_color' : ''}}">PLACE ORDER</button>
+                                <p class="remove_width">By placing your, you agree to <span class="yellow_color">Terms and
+                                        Conditions</span> and<span class="yellow_color"> Returns Policies </span> </p>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 ps-md-3">
+                    <div class="cart-block ms-md-auto">
+                        <h2 class="cart_title">Cart Bag</h2>
+                        <hr class="cart-border">
+                        <div class="cart_innr">
+                            <h3 class="cart_subtitle text-center">{{singleProduct?.name}}</h3>
+                            <p class="text-center small_title">{{singleProduct?.Design?.metal ? singleProduct?.Design?.metal + ',' : ''  }} {{singleProduct?.Stone?.stone_cut ? singleProduct?.Stone?.stone_cut + ',' : ""}} Color/Clarity: {{singleProduct?.Stone?.stone_colour}}/{{singleProduct?.Stone?.stone_clarity}}</p>
+                        </div>
+                        <div class="cart_price">
+                            <div class="price_text d-flex justify-content-between">
+                                <h5 class="pe-2 text-white qty d-flex">Quantity &nbsp;:  &nbsp;<h4 class="yellow_color ">1</h4></h5>
+                                <p class="yellow_color ">${{this.apiData?.state?.wholeSalePrice}}</p>
+                            </div>
+                            <hr class="cart-border">
+                            <div class="price_text Total-amount d-flex justify-content-between">
+                                <h5 class="pe-2 text-white">TOTAL TO PAY</h5>
+                                <p class="yellow_color">${{this.apiData?.state?.wholeSalePrice}}</p>
+                            </div>
+                        </div>
+
+                        <div class="cart_img">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-3">
+                                    <div class="ring">
+                                        <img src={{singleProduct?.image}} alt="ring" class="img-fluid order_img_check">
+                                    </div>
+                                </div>
+                                <div class="col-6 p-0">
+                                    <div class="cart_img_border"></div>
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <div class="africa ms-auto">
+                                        <img src={{singleProduct?.owner_thumbnail_image}} alt="africa" class="img-fluid mb-2 order_img_check">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <p class="aftrica_txt text-center text-white yellow_color_p">{{singleProduct?.owner_name}}</p> -->
+                            <div class="row d-flex align-items-center">
+                                <div class="col-3">
+                                 
+                                </div>
+                                <div class="col-6 p-0">
+                                   
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <div class="africa ms-auto">
+                                                                <p class="aftrica_txt text-center text-white yellow_color_p">{{singleProduct?.owner_name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,429 @@
+// font family
+$default-font: "PLayfairDisplay";
+$abel-font: "Abel-Regular";
+$poppins-font:"Poppins";
+$mulish-font:"Mulish";
+$montserrat-font:'Montserrat', sans-serif;
+// colors
+$rd-black : #111111;
+$rd-shop-bg: #E4DFDC;
+$rd-white : #ffffff;
+$rd-brown :#E09B3D;
+$rd-text-color:#E3DCD0;
+// mixins
+@mixin font($font-size, $line-height, $font-weight, $color, $family) {
+    font-size: $font-size;
+    line-height: $line-height;
+    font-weight: $font-weight;
+    color: $color;
+    font-family: $family;
+}
+@mixin lineClamp($lines){
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+// ============== Media Query ===================
+
+@mixin media-query($size) {
+    @if $size == xxl {
+      @media (max-width: 1700px){
+        @content;
+      }
+    } @else if $size == xl {
+      @media (max-width: 1399px) {
+        @content;
+      }
+    } @else if $size == des2 {
+      @media (max-width: 1379px) {
+        @content;
+      }
+    }@else if $size == des {
+      @media (max-width: 1359px) {
+        @content;
+      }
+    }  @else if $size == min-des {
+      @media (min-width: 1200px) {
+        @content;
+      }
+    } @else if $size == lg {
+      @media (max-width: 1199px) {
+        @content;
+      }
+    } @else if $size == md {
+      @media (max-width: 991px) {
+        @content;
+      }
+    } @else if $size == tabL {
+      @media only screen 
+      and (min-device-width : 768px) 
+      and (max-device-width : 1199px) 
+      and (orientation : landscape) {
+        @content;
+      }
+    }@else if $size == sm {
+      @media (max-width: 767px) {
+        @content;
+      }
+    } @else if $size == xs {
+      @media (max-width: 575px) {
+        @content;
+      }
+    } @else if $size == xxs {
+      @media (max-width: 400px) {
+        @content;
+      }
+    } 
+  }
+ 
+  
+//  @include media-query(xxl) { 
+//   }
+// height query
+@mixin media-query-height($size) {
+  @if $size == xxxl {
+    @media (min-width: 1200px) and (max-height:1199px){
+      @content;
+    }
+  } 
+  @if $size == xxl {
+    @media (min-width: 1200px) and (max-height:1125px){
+      @content;
+    }
+  } 
+  @if $size == xl {
+    @media (min-width: 1200px) and (max-height:1025px){
+      @content;
+    }
+  } 
+    @if $size == lg {
+      @media (min-width: 1200px) and (max-height:925px){
+        @content;
+      }
+    } 
+     @else if $size == md {
+      @media (min-width: 1200px) and (max-height:825px) {
+        @content;
+      }
+    }
+     @else if $size == sm {
+        @media (min-width: 1200px) and (max-height:725px) {
+        @content;
+      }
+    } @else if $size == xs {
+        @media (min-width: 1200px) and (max-height:625px){
+        @content;
+      }
+    }  @else if $size == xss {
+      @media (min-width: 1200px) and (max-height:550px){
+      @content;
+    }
+  } 
+}
+// media query mobile landscape mode 
+@mixin media-mobile($size) {
+  @if $size == md{
+    @media (max-width: 1200px) and (max-height:575px) and (orientation : landscape){
+      @content;
+    }
+  } 
+  @else if $size == sm {
+    @media (max-width: 1200px) and (max-height:450px) and (orientation : landscape){
+      @content;
+    }
+  } @else if $size == xs {
+      @media (max-width: 1200px) and (max-height:350px) and (orientation : landscape){
+      @content;
+    }
+  }  @else if $size == xss {
+    @media (max-width: 767px) and (max-height:500px) and (orientation : landscape){
+    @content;
+  }
+} 
+}
+  // ============== Sub-heading ===================
+  @mixin sub-heading {
+    @include font(30px,35px,400,$rd-white,$default-font);
+    letter-spacing: 0.75px;
+    text-align: left;
+    @include media-query-height(md){
+        font-size: 32px;
+        line-height: 41px;
+    }
+  }
+// ============== Cover Image ===================
+@mixin cover-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+// ============== Shop all page ===================
+@mixin active-width{
+  width: 75%; 
+  @include media-query(lg){
+    width: 66.66%;
+  }
+  @include media-query(sm){
+    width: 0;
+    overflow: hidden;
+  }
+  .category-wrap{
+      width: calc(33.33% - 10px) !important;  
+      @include media-query(lg){
+        width: calc(50% - 10px) !important;
+      }
+  }
+} 
+@mixin sidebar-width {
+  width:25%;
+  padding-left: 27px;
+  overflow: visible; 
+  @include  media-query(lg){
+      width: 33.33%;
+  }
+  @include media-query(sm){
+    width: 100%;
+    padding: 0;
+  }
+}
+@mixin filter-sidebar { 
+  position: relative;
+  width: 0;
+  transition: 0.3s ease-in-out;
+  display: inline-block;
+  @include media-query(sm){
+    transition: unset;
+  }
+  a.close-btn {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+      @include media-query(lg){
+        right: 18px;
+        top: 18px;
+      }
+  }
+  .filter-btn {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 70px);
+      @include media-query(sm){
+        bottom: calc(100% + 60px);
+      }
+  }
+  .selected-filters {
+      position: absolute;
+      bottom: 100%; 
+      width: 1320px;
+      right: 0;
+      height: 46px;
+      display: flex;
+      justify-content: flex-end;
+      @include  media-query(lg){
+        bottom: calc(100% + 10px);
+      }
+      ul{
+          direction: rtl;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          flex-wrap: wrap;
+          li{
+              margin-left: 50px;
+              @include media-query(sm){
+                margin-left: 15px;
+              }
+              span,a{
+                  @include font(18px,21px,300,#333, $poppins-font);
+                  @include media-query(sm){
+                    font-size: 13px;
+                    line-height: 15px;
+                  }
+              }
+              a{
+                  margin-right: 10px;
+                  @include media-query(sm){
+                    margin-right: 5px;
+                  }
+              } 
+          }
+      }
+  }
+  .filters-options {
+      background-color: #F6F6F6;
+      margin-top: 12px;
+      border-radius: 6px;
+      padding: 64px 30px 30px;
+      position: relative;
+      opacity: 0;
+      // transition: 0.3s ease-in-out;
+      @include media-query(lg){
+        padding: 57px 27px 27px;
+      }
+      @include media-query(md){
+        padding: 57px 15px 27px  15px;
+      }
+      @include media-query(sm){
+        padding: 64px 30px 30px; 
+      }
+  }
+  .ant-btn{
+      padding: 15px 15px!important;
+      height: 48px;
+      @include font(14px,14px,400,#fff, $poppins-font); 
+      border:1px solid #333;
+      background-color: #333;
+      margin-top: 32px;
+      width: 100%;
+      text-align: center;
+      box-shadow: unset;
+      &:hover,:focus{
+        background-color: transparent;
+        color: #333;
+      }
+
+    }
+}
+// ============== END ===================
+@mixin title60 {
+  @include font(60px,80px,700,#E3DCD0, $default-font);
+  letter-spacing: 2px; 
+  @include media-query(lg){
+    font-size: 50px;
+    line-height: 65px;
+  }
+  @include media-query(md){
+    font-size: 40px;
+    line-height: 53px;
+  }
+  @include media-query(sm){
+    font-size: 32px;
+    line-height: 42px;
+  }
+}
+@mixin title48 {
+  @include font(48px,64px,700,#E3DCD0, $default-font);
+  letter-spacing: 2px; 
+  @include media-query(lg){
+    font-size: 37px;
+    line-height: 50px;
+  }
+  @include media-query(md){
+    font-size: 28px;
+    line-height: 37px;
+  }
+} 
+@mixin title40 {
+  @include font(40px,53px,700,#E3DCD0, $default-font);
+  letter-spacing: 2px; 
+  @include media-query(sm){
+    font-size: 32px;
+    line-height: 42px;
+  }
+}
+@mixin  title32 {
+  @include font(32px,87px,400,#fff,$default-font);
+  letter-spacing: 1px;  
+  @include media-query-height(xl){
+    font-size: 30px;
+    line-height: 75px;
+  }
+}
+@mixin text18 {
+  @include font(18px,32px,400,#E3DCD0, $poppins-font);
+  letter-spacing: 0px; 
+}
+@mixin term-text($color,$fontweight) {
+    @include font(18px,27px,$fontweight,$color,$poppins-font);
+    margin-top: 27px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0;
+    @include media-query(md){
+      font-size: 17px;
+      line-height: 21px;
+      margin-top: 21px;
+    }
+    @include media-query(sm){
+      font-size: 14px;
+      line-height: 21px;
+      margin-top: 21px;
+    }
+}
+@mixin text16 {
+  @include font(16px,61px,300,#fff,$poppins-font);
+  letter-spacing: 0.22px; 
+  @include media-query(md){
+    font-size: 13px;
+    line-height: 39px;
+  }
+  @include media-query(md){
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+ 
+@mixin checkoutBtns {  
+  max-width: calc(100% - 40px);
+  // min-height: calc(100% - 120px);
+  // height: -webkit-fill-available;
+  @include media-query(lg){
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0!important;
+  }
+  .ant-modal-close{
+      display: none;
+  }
+  .ant-modal-content{
+      background-color: #1A1A1A;  
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+  } 
+  .ant-modal-body{
+      padding: 45px 65px 45px 45px;
+      @include media-query(lg){
+        padding: 45px;
+      }
+      @include media-query(sm){
+        padding: 45px 25px;
+      }
+      .back-btn {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .back-btn1{
+              @include font(14px,24px,400,#fff,$poppins-font);
+              text-transform: uppercase;
+              letter-spacing: 4px;
+              margin-right: 20px;
+              text-decoration: none;
+              img{
+                  margin-right: 12px;
+                  width: 19px;
+              }
+          }
+          .sign-out-btn{
+              @include font(14px,20px,400,#E09B3D,$default-font);
+              text-transform: uppercase;
+              text-decoration: none;
+          }
+      }
+  }
+  .ant-modal-footer{
+      display: none;
+  }
+}

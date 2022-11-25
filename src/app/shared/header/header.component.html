@@ -1,0 +1,684 @@
+<!-- =============================== Header start =============================-->
+<header id="header">
+  <div class="head-contianer d-flex">
+    <!-- logo -->
+    <div *ngIf="!checkUrl" class="head-logo">
+      <a (click)="navigate() ; homeActive()">
+        <img src="../../../assets/img/logo.svg" alt=""/>
+      </a>
+    </div>
+    <div class="menu-icon">
+      <!-- hamburger menu  -->
+      <!-- <div class="toggle-outer" (click)="open()">
+        <img src="../../../assets/img/hamburger.svg" alt=""/>
+      </div> -->
+    </div>
+  </div>
+</header> 
+<!-- =============================== Header end here ==========================--> 
+<!--  -->
+<!-- =============================== Menu Sidebar =============================-->
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  nzTitle=""
+  (nzOnClose)="close()"
+  nzWidth="480px"
+>
+  <ng-container *nzDrawerContent>
+    <div class="sidebar-menu">
+      <a class="close-btn" (click)="close()">
+        <img src="../../../assets/img/sidebar-close.svg" alt=""/>
+      </a> 
+      <ul class="top-menu signed-menu"> 
+        <li class="signed-title">
+          <a>Shop</a>
+        </li>
+        <li>
+          <a (click)="rings(); close()">Rings</a>
+        </li>
+        <li>
+          <a (click)="earings(); close()">Earrings</a>
+        </li>
+        <li>
+          <a (click)="polishDiamonds(); close()">Polish</a>
+        </li>
+        <li>
+          <a (click)="rawDiamonds(); close()">Raw</a>
+        </li> 
+      </ul>
+      <ul class="top-menu">
+        <li>
+          <a (click)="navigate();close();homeActive()">About Us</a>
+        </li>
+        <li>
+          <a (click)="navigate();close();homeActive()">Our Commitment</a>
+        </li>
+        <li>
+          <a (click)="navigate();close();homeActive()">Accountability</a>
+        </li>
+        <li>
+          <a (click)="navigate();close();homeActive()">Contact Us</a>
+        </li>
+      </ul>      
+    </div>
+    <div class="social-copyright">
+      <p>Copyright © 2021 Root Diamonds. All Rights Reserved.</p>
+    </div>
+  </ng-container>
+</nz-drawer>
+<!-- =============================== Menu Sidebar End =========================--> 
+              <!-- ========================================= -->
+              <!-- ========================================= -->
+              <!-- =========== POPUP START ================= -->
+              <!-- ========================================= -->
+              <!-- ========================================= -->
+<!-- =============================== Sign In Popup ============================-->
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+  nzWidth="1300px"
+  nzClassName="login-sign-up"
+  nzCentered="true"
+>
+  <ng-template #modalContent>
+    <div class="sign-in-forget-modal">
+      <div class="back-btn">
+        <a (click)="handleCancel()"
+          ><img src="../../../assets/img/left-right.svg" alt=""/>Back</a
+        >
+      </div>
+      <div class="sign-in-wrap">
+        <div class="left-sec">
+          <h3>Already have an account?</h3>
+          <h4>Sign In</h4>
+        </div>
+        <div class="right-sec">
+          <form class="login-form">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input z-input name="name"  id="name" />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <div class="password-outer">
+              <input
+                type="password"
+                nz-input
+                name=""  id="" 
+              />
+              <a class="show-password">
+                <img src="../../../assets/img/show-password.svg" alt=""/>
+              </a>
+            </div>
+            </div>
+            <div class="forget-btn">
+              <a class="login-form-forgot" (click)="handleCancel(); resetPass()"
+                >Forgot password</a
+              >
+            </div>
+            <button nz-button class="login-form-button" [nzType]="'primary'" (click)="handleCancel();openAccount($event);">
+              Continue <img src="../../../assets/img/right-arrow.svg" alt=""/>
+            </button>
+            <p class="create-account">
+              Don't Have An Account ? <a (click)="handleCancel(); signUp();">Create An Account</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter> </ng-template>
+</nz-modal>
+<!-- =============================== Sign In Popup End ========================-->
+<!--  -->
+<!-- =============================== Sign Up Popup ============================-->
+<nz-modal
+  [(nzVisible)]="isVisible1"
+  [nzContent]="modalContent1"
+  [nzFooter]="modalFooter1"
+  (nzOnCancel)="handleCancel1()"
+  nzWidth="1300px"
+  nzClassName="login-sign-up"
+  nzCentered="true"
+>
+  <ng-template #modalContent1>
+    <div class="sign-in-forget-modal">
+      <div class="back-btn">
+        <a (click)="handleCancel1()"
+          ><img src="../../../assets/img/left-right.svg" alt=""/>Back</a
+        >
+      </div>
+      <div class="sign-in-wrap">
+        <div class="left-sec">
+          <h3>Don’t Have an Account yet?</h3>
+          <h4>Sign Up</h4>
+        </div>
+        <div class="right-sec">
+          <form class="login-form">
+            <div class="form-group">
+              <label>First Name</label>
+              <input
+                type="text"
+                nz-input
+                name=""  id="first-name" 
+              />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input
+                type="text"
+                nz-input
+                name=""  id="last-name" 
+              />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="text"
+                nz-input
+                name=""  id="email" 
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                nz-input
+                name=""  id="password" 
+              />
+            </div>
+            <div class="forget-btn">
+              <p class="create-account mb-0">
+                Already Have An Account? <a (click)=" signIn(); handleCancel1();">Sign In</a>
+              </p>
+            </div>
+            <button
+              nz-button
+              class="login-form-button mb-0 "
+              [nzType]="'primary'"
+            >
+              Continue <img src="../../../assets/img/right-arrow.svg" alt=""/>
+            </button>
+            <p class="create-account term-conditions"> <a (click)=" termConditions();handleCancel1();">TERMS AND CONDITIONS</a>
+            </p>
+          </form> 
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter1> </ng-template>
+</nz-modal>
+<!-- =============================== Sign Up Popup End ========================-->
+<!--  -->
+<!-- =============================== Reset Popup ==============================-->
+<nz-modal
+  [(nzVisible)]="isVisible2"
+  [nzContent]="modalContent2"
+  [nzFooter]="modalFooter2"
+  (nzOnCancel)="handleCancel2()"
+  nzWidth="1300px"
+  nzClassName="login-sign-up"
+  nzCentered="true"
+>
+  <ng-template #modalContent2>
+    <div class="sign-in-forget-modal">
+      <div class="back-btn">
+        <a (click)="handleCancel2()"
+          ><img src="../../../assets/img/left-right.svg" alt=""/>Back</a
+        >
+      </div>
+      <div class="sign-in-wrap">
+        <div class="left-sec">
+          <h3>Forgot Password?</h3>
+          <h4>Reset it</h4>
+        </div>
+        <div class="right-sec">
+          <!-- <form class="login-form"> -->
+          <div class="login-form">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="text"
+                nz-input
+                name=""  id="" 
+              />
+            </div>
+
+            <div class="confirm-checkbox">
+              <label nz-checkbox
+                >By choosing this option, you agree that the emaill address you
+                provided is correct</label
+              >
+            </div>
+            <button
+              nz-button
+              class="login-form-button mb-0"
+              [nzType]="'primary'"
+              (click)="resetPassConditions()"
+            >
+              Continue <img src="../../../assets/img/right-arrow.svg" alt=""/>
+            </button>
+            <p class="success-message">
+              We've sent you an email with a link to reset your password.
+            </p>
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter2> </ng-template>
+</nz-modal>
+<!-- =============================== Reset Popup End ==========================-->
+<!--  -->
+<!-- =============================== reser password conditions  ===============-->  
+<!-- =============================== Reset Popup ==============================-->
+<nz-modal
+  [(nzVisible)]="isVisible3"
+  [nzContent]="modalContent3"
+  [nzFooter]="modalFooter3"
+  (nzOnCancel)="handleCancel3()"
+  nzWidth="1300px"
+  nzClassName="login-sign-up"
+  nzCentered="true"
+>
+  <ng-template #modalContent3>
+    <div class="sign-in-forget-modal">
+      <div class="back-btn">
+        <a (click)="handleCancel3()"
+          ><img src="../../../assets/img/left-right.svg" alt=""/>Back</a
+        >
+      </div>
+      <div class="sign-in-wrap">
+        <div class="left-sec">
+          <h3>Forgot Password?</h3>
+          <h4>Reset it</h4>
+        </div>
+        <div class="right-sec">
+          <!-- <form class="login-form"> -->
+          <div class="login-form">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="text"
+                nz-input
+                name=""  id="" 
+              />
+            </div>
+
+            <div class="confirm-checkbox has-email">
+              <label nz-checkbox
+                >By choosing this option, you agree that the emaill address you
+                provided is correct</label
+              >
+            </div>
+            <button
+              nz-button
+              class="login-form-button mb-0"
+              [nzType]="'primary'"
+              (click)="resetPassword()"
+            >
+              Continue <img src="../../../assets/img/right-arrow.svg" alt=""/>
+            </button>
+            <p class="success-message in">
+              We've sent you an email with a link to reset your password.
+            </p>
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter3> </ng-template>
+</nz-modal>
+<!-- =============================== Reset Popup End ==========================-->
+<!--  -->
+<!-- =============================== Reset Password Popup =====================-->
+<nz-modal
+  [(nzVisible)]="isVisible4"
+  [nzContent]="modalContent4"
+  [nzFooter]="modalFooter4"
+  (nzOnCancel)="handleCancel4()"
+  nzWidth="1300px"
+  nzClassName="login-sign-up"
+  nzCentered="true"
+>
+  <ng-template #modalContent4>
+    <div class="sign-in-forget-modal">
+      <div class="back-btn">
+        <a (click)="handleCancel4()"
+          ><img src="../../../assets/img/left-right.svg" alt=""/>Back</a
+        >
+      </div>
+      <div class="sign-in-wrap">
+        <div class="left-sec">
+          <h3>Set new password</h3>
+          <h4 class="nowrap">Reset Password</h4>
+        </div>
+        <div class="right-sec reset-password">
+          <form class="login-form">
+            <div class="form-group">
+              <label>New Password</label>
+              <input
+                type="password"
+                nz-input
+                name=""  id="" 
+              />
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input
+                type="passwoord"
+                nz-input
+                name=""  id="" 
+              />
+            </div>
+            <button
+              nz-button
+              class="login-form-button mb-0"
+              [nzType]="'primary'"
+            >
+              Continue <img src="../../../assets/img/right-arrow.svg" alt=""/>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter4> </ng-template>
+</nz-modal>
+<!-- =============================== Reset Password Popup End =================-->
+<!--  -->
+<!-- =============================== Subscribe Popup ==========================-->
+<nz-modal
+  [(nzVisible)]="isVisible5"
+  [nzContent]="modalContent5"
+  [nzFooter]="modalFooter5"
+  (nzOnCancel)="handleCancel5()"
+  nzWidth="1160px"
+  nzClassName="subscribe-form"
+  nzCentered="true"
+>
+  <ng-template #modalContent5>
+    <div class="subscribe-form-outer">
+      <div class="left-sec">
+        <figure>
+          <img src="../../../assets/img/subscribe-img.png" alt="" class="des-img"/>
+          <img src="../../../assets/img/subscribe-img-mob.png" alt="" class="mob-img"/>
+        </figure>
+      </div>
+      <div class="right-sec">
+        <h3>Subscribe</h3>
+        <h4>To join our mailing List</h4>
+        <form class="subscribe-form-wrap">
+          <div class="form-group">
+            <input
+              type="text"
+              nz-input
+              name=""  id="" 
+            />
+            <button
+              nz-button
+              nzType="default"
+              nzSize="large"
+              class="subscribe-form-button"
+            >
+              Subscribe
+            </button>
+          </div>
+          <p class="info-text">Promise we won’t spam you.</p>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter5> </ng-template>
+</nz-modal>
+<!-- =============================== Subscribe Popup End ======================-->
+<!--  -->
+<!-- =============================== Terms and Conditions Popup ===============--> 
+<nz-modal
+  [(nzVisible)]="isVisible11"
+  [nzContent]="modalContent11"
+  [nzFooter]="modalFooter11"
+  (nzOnCancel)="handleCancel11()"
+  nzWidth="1300px"
+  nzClassName="term-conditions-popup"
+  nzCentered="true"
+>
+  <ng-template #modalContent11>
+    <div class="term-conditions-inner">
+      <div class="back-btn">
+        <a (click)="handleCancel11()"
+          ><img src="../../../assets/img/left-right.svg" alt=""/>Back</a
+        >
+      </div>
+      <div class="terms-conditions-content">
+          <h3>Terms & Conditions</h3>
+          <h4>PRIVACY STATEMENT</h4>
+          <p>----</p>
+
+          <h4>SECTION 1 - WHAT DO WE DO WITH YOUR INFORMATION?</h4>
+
+          <p>When you purchase something from our store, we collect the personal information you give us as part of the buying and selling process, such as your name, address, phone number, and email address.</p>
+          <p>When you browse our store, we also automatically receive your computer's internet protocol (IP) address to provide us with information that helps us learn about your browser and operating system.</p>
+          <p>We are committed to implementing the necessary steps to protect all data collected from you from loss or theft.</p>
+          <p>Email and Text marketing (if applicable): With your permission, we may send you emails or texts about our store, new products, and other updates.</p> 
+          <p>For more information about our text marketing, click here for terms & conditions, or click here for the privacy policy.</p>
+
+
+          <h4>SECTION 2 - CONSENT</h4> 
+          <p> How do you get my consent?</p>
+          <p>When you provide us with personal information to complete a transaction, verify your credit card, place an order, arrange for a delivery or return a purchase, we imply that you consent to our collecting it and using it for that specific reason only.</p>
+          <p> If we ask for your personal information for a secondary reason, like marketing, we will ask you directly for your expressed consent or provide you with an opportunity to say no.</p>
+          <p> How do I withdraw my consent?</p>
+          <p>If you change your mind, you may withdraw your consent for us to contact you, for the continued collection, use, or disclosure of your information, at any time by contacting us at info@rootdiamonds.com.</p>
+          
+
+          <h4> SECTION 3 - DISCLOSURE</h4> 
+          <p> We may disclose your personal information if we are required by law to do so or if you violate our Terms of Service.</p> 
+
+          <h4> SECTION 4 - Payment</h4> 
+          <p><strong>Payment:</strong></p>
+          <p> If you choose a direct payment gateway to complete your purchase, then Shopify stores your credit card data. It is encrypted through the Payment Card Industry Data 
+            Security Standard (PCI-DSS). Your purchase transaction data is stored only as long as is necessary to complete your purchase transaction. After that is complete, 
+            your purchase transaction information is deleted.</p>
+          <p>All direct payment gateways adhere to the standards set by PCI-DSS as managed by the PCI Security Standards Council, which is a joint effort of brands like Visa, Mastercard, 
+            American Express and Discover.</p>
+          <p>PCI-DSS requirements help ensure the secure handling of credit card information by our store and its service providers.</p>
+          <p>For more insight, you may also want to read Shopify's Terms of Service (https://www.shopify.com/legal/terms) or Privacy Statement (https://www.shopify.com/legal/privacy)</p>
+
+          <h4> SECTION 5 - THIRD-PARTY SERVICES</h4> 
+          <p>In general, the third-party providers used by us will only collect, use and disclose your information to the extent necessary to allow them to perform the services 
+            they provide to us.</p>
+          <p>However, certain third-party service providers, such as payment gateways and other payment transaction processors, have their own privacy policies in respect to the
+             information we are required to provide to them for your purchase-related transactions.</p>
+          <p>For these providers, we recommend that you read their privacy policies so you can understand the manner in which your personal information will be handled by these providers.</p>
+          <p>In particular, remember that certain providers may be located in or have facilities in a different jurisdiction than either you or us. So if you elect to proceed with a transaction that involves the services of a third-party service provider, then your information may become subject to the laws of the jurisdiction(s) in which that service provider or its facilities are located.</p>
+          <p>As an example, if you are located in Canada, and your transaction is processed by a payment gateway located in the United States, then your personal information used in completing that transaction may be subject to disclosure under United States legislation, including the Patriot Act.
+          </p>
+          <p>Once you leave our store's website or are redirected to a third-party website or application, you are no longer governed by this Privacy Policy or our website's Terms of Service.</p>
+
+          <h5>Links</h5>
+          <p>When you click on links on our store, they may direct you away from our site. We are not responsible for the privacy practices of other sites and encourage you
+             to read their privacy statements.</p>
+          
+          <h4>SECTION 6 - SECURITY</h4> 
+          <p>To protect your personal information, we take reasonable precautions and follow industry best practices to make sure it is not inappropriately lost, 
+            misused, accessed, disclosed, altered or destroyed.</p>
+          <p>If you provide us with your credit card information, the information is encrypted using secure socket layer technology (SSL) and stored with a AES-256 encryption. Although no method of transmission over the Internet or electronic storage is 100% secure, we follow all PCI-DSS requirements and implement additional generally accepted industry standards.</p>
+          
+          <h4>SECTION 7 - COOKIES</h4> 
+          <p>Here is a list of cookies that we use. These cookies store your data for varying lengths of time to make your browsing experience easier. We've listed them here so you can choose if you want to opt out of cookies or not.
+          </p>
+          <p>_session_id, unique token, sessional, Allows Shopify to store information about your session (referrer, landing page, etc).
+          </p>
+          <p>_shopify_visit, no data held, Persistent for 30 minutes from the last visit, Used by our website provider's internal stats tracker to record the number of visits
+          </p>
+          <p>_shopify_uniq, no data held, expires midnight (relative to the visitor) of the next day, Counts the number of visits to a store by a single customer.
+          </p>
+          <p>cart, unique token, persistent for 2 weeks, Stores information about the contents of your cart.
+          </p>
+          <p>_secure_session_id, unique token, sessional
+          </p>
+          <p>storefront_digest, unique token, indefinite If the shop has a password, this is used to determine if the current visitor has access.</p>
+
+
+          <h4>SECTION 8 - AGE OF CONSENT</h4> 
+          <p>By using this site, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence, and you have given us your consent to allow any of your minor dependents to use this site.
+          </p>
+
+          <h4>SECTION 9 - CHANGES TO THIS PRIVACY POLICY</h4> 
+          <p>
+            We reserve the right to modify this privacy policy at any time, so please review it frequently. Changes and clarifications will take effect immediately upon their posting on the website. If we make material changes to this policy, we will notify you here that it has been updated so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we use and/or disclose it.
+            </p>
+          <p>If our store is acquired or merged with another company, your information may be transferred to the new owners so that we may continue to sell products to you.
+          </p>
+
+
+          <h4>SECTION 10 - WHAT DO WE DO WITH LANDOWNERS' AND MINERS' INFORMATION?</h4>
+          <p>Root Diamonds does not only collect your information. It also collects information from the landowners and miners who pull our stones out of the ground.</p>
+          <p>Making our diamonds "storied" so that you can understand the lives of the artisanal miners at the beginning of diamond supply chains requires us to hold onto information about miners and landowners. This includes their image, information on the stones they found, biographic information, and their ambitions.</p>
+          <p>We are cautious to ensure that we only use this data the way we communicated to the miners and landowners when we met them. This means that we will share minimal data on our website and more comprehensive data only with the consumer that buys their diamond.</p>
+
+          <div class="accept-btn">
+              <button (click)="handleCancel11()">Accept</button>
+          </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter11> </ng-template>
+</nz-modal>
+<!-- =============================== Terms and Conditions Popup End ===========--> 
+<!--  -->
+<!-- =============================== Privacy Policy Popup =====================--> 
+<nz-modal
+  [(nzVisible)]="isVisible12"
+  [nzContent]="modalContent12"
+  [nzFooter]="modalFooter12"
+  (nzOnCancel)="handleCancel12()"
+  nzWidth="1300px"
+  nzClassName="term-conditions-popup privacy-policy-popup"
+  nzCentered="true"
+>
+  <ng-template #modalContent12>
+    <div class="privacy-policy-outer"> 
+      <div class="terms-conditions-content">
+        <h3>Privacy Policy </h3>
+        <h4>PRIVACY STATEMENT</h4>
+          <p>----</p>
+
+          <h4>SECTION 1 - WHAT DO WE DO WITH YOUR INFORMATION?</h4>
+
+          <p>When you purchase something from our store, we collect the personal information you give us as part of the buying and selling process, such as your name, address, phone number, and email address.</p>
+          <p>When you browse our store, we also automatically receive your computer's internet protocol (IP) address to provide us with information that helps us learn about your browser and operating system.</p>
+          <p>We are committed to implementing the necessary steps to protect all data collected from you from loss or theft.</p>
+          <p>Email and Text marketing (if applicable): With your permission, we may send you emails or texts about our store, new products, and other updates.</p> 
+          <p>For more information about our text marketing, click here for terms & conditions, or click here for the privacy policy.</p>
+
+
+          <h4>SECTION 2 - CONSENT</h4> 
+          <p> How do you get my consent?</p>
+          <p>When you provide us with personal information to complete a transaction, verify your credit card, place an order, arrange for a delivery or return a purchase, we imply that you consent to our collecting it and using it for that specific reason only.</p>
+          <p> If we ask for your personal information for a secondary reason, like marketing, we will ask you directly for your expressed consent or provide you with an opportunity to say no.</p>
+          <p> How do I withdraw my consent?</p>
+          <p>If you change your mind, you may withdraw your consent for us to contact you, for the continued collection, use, or disclosure of your information, at any time by contacting us at info@rootdiamonds.com.</p>
+          
+
+          <h4> SECTION 3 - DISCLOSURE</h4> 
+          <p> We may disclose your personal information if we are required by law to do so or if you violate our Terms of Service.</p> 
+
+          <h4> SECTION 4 - Payment</h4> 
+          <p><strong>Payment:</strong></p>
+          <p> If you choose a direct payment gateway to complete your purchase, then Shopify stores your credit card data. It is encrypted through the Payment Card Industry Data 
+            Security Standard (PCI-DSS). Your purchase transaction data is stored only as long as is necessary to complete your purchase transaction. After that is complete, 
+            your purchase transaction information is deleted.</p>
+          <p>All direct payment gateways adhere to the standards set by PCI-DSS as managed by the PCI Security Standards Council, which is a joint effort of brands like Visa, Mastercard, 
+            American Express and Discover.</p>
+          <p>PCI-DSS requirements help ensure the secure handling of credit card information by our store and its service providers.</p>
+          <p>For more insight, you may also want to read Shopify's Terms of Service (https://www.shopify.com/legal/terms) or Privacy Statement (https://www.shopify.com/legal/privacy)</p>
+
+          <h4> SECTION 5 - THIRD-PARTY SERVICES</h4> 
+          <p>In general, the third-party providers used by us will only collect, use and disclose your information to the extent necessary to allow them to perform the services 
+            they provide to us.</p>
+          <p>However, certain third-party service providers, such as payment gateways and other payment transaction processors, have their own privacy policies in respect to the
+             information we are required to provide to them for your purchase-related transactions.</p>
+          <p>For these providers, we recommend that you read their privacy policies so you can understand the manner in which your personal information will be handled by these providers.</p>
+          <p>In particular, remember that certain providers may be located in or have facilities in a different jurisdiction than either you or us. So if you elect to proceed with a transaction that involves the services of a third-party service provider, then your information may become subject to the laws of the jurisdiction(s) in which that service provider or its facilities are located.</p>
+          <p>As an example, if you are located in Canada, and your transaction is processed by a payment gateway located in the United States, then your personal information used in completing that transaction may be subject to disclosure under United States legislation, including the Patriot Act.
+          </p>
+          <p>Once you leave our store's website or are redirected to a third-party website or application, you are no longer governed by this Privacy Policy or our website's Terms of Service.</p>
+
+          <h5>Links</h5>
+          <p>When you click on links on our store, they may direct you away from our site. We are not responsible for the privacy practices of other sites and encourage you
+             to read their privacy statements.</p>
+          
+          <h4>SECTION 6 - SECURITY</h4> 
+          <p>To protect your personal information, we take reasonable precautions and follow industry best practices to make sure it is not inappropriately lost, 
+            misused, accessed, disclosed, altered or destroyed.</p>
+          <p>If you provide us with your credit card information, the information is encrypted using secure socket layer technology (SSL) and stored with a AES-256 encryption. Although no method of transmission over the Internet or electronic storage is 100% secure, we follow all PCI-DSS requirements and implement additional generally accepted industry standards.</p>
+          
+          <h4>SECTION 7 - COOKIES</h4> 
+          <p>Here is a list of cookies that we use. These cookies store your data for varying lengths of time to make your browsing experience easier. We've listed them here so you can choose if you want to opt out of cookies or not.
+          </p>
+          <p>_session_id, unique token, sessional, Allows Shopify to store information about your session (referrer, landing page, etc).
+          </p>
+          <p>_shopify_visit, no data held, Persistent for 30 minutes from the last visit, Used by our website provider's internal stats tracker to record the number of visits
+          </p>
+          <p>_shopify_uniq, no data held, expires midnight (relative to the visitor) of the next day, Counts the number of visits to a store by a single customer.
+          </p>
+          <p>cart, unique token, persistent for 2 weeks, Stores information about the contents of your cart.
+          </p>
+          <p>_secure_session_id, unique token, sessional
+          </p>
+          <p>storefront_digest, unique token, indefinite If the shop has a password, this is used to determine if the current visitor has access.</p>
+
+
+          <h4>SECTION 8 - AGE OF CONSENT</h4> 
+          <p>By using this site, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence, and you have given us your consent to allow any of your minor dependents to use this site.
+          </p>
+
+          <h4>SECTION 9 - CHANGES TO THIS PRIVACY POLICY</h4> 
+          <p>
+            We reserve the right to modify this privacy policy at any time, so please review it frequently. Changes and clarifications will take effect immediately upon their posting on the website. If we make material changes to this policy, we will notify you here that it has been updated so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we use and/or disclose it.
+            </p>
+          <p>If our store is acquired or merged with another company, your information may be transferred to the new owners so that we may continue to sell products to you.
+          </p>
+
+
+          <h4>SECTION 10 - WHAT DO WE DO WITH LANDOWNERS' AND MINERS' INFORMATION?</h4>
+          <p>Root Diamonds does not only collect your information. It also collects information from the landowners and miners who pull our stones out of the ground.</p>
+          <p>Making our diamonds "storied" so that you can understand the lives of the artisanal miners at the beginning of diamond supply chains requires us to hold onto information about miners and landowners. This includes their image, information on the stones they found, biographic information, and their ambitions.</p>
+          <p>We are cautious to ensure that we only use this data the way we communicated to the miners and landowners when we met them. This means that we will share minimal data on our website and more comprehensive data only with the consumer that buys their diamond.</p>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter12> </ng-template>
+</nz-modal> 
+<!-- =============================== Privacy Policy Popup End =================--> 
+<!--  -->
+<!-- =============================== Cookie Policy ============================--> 
+<div class="cookie-policy">
+  <p>
+    Cookies- We only use functional and analytical cookies to ensure that this
+    website functions optimally. For more info check our <a (click)="privacyPolicy()">Privacy Policy</a>.
+    <!-- website functions optimally. For more info check our <a (click)="privacyPolicy()">Privacy Policy</a>. -->
+  </p>
+  <button
+    nz-button
+    nzType="primary"
+    nzSize="large"
+    (click)="closeCookie($event)"
+  >
+    Accept
+  </button>
+  <a class="close-btn" (click)="closeCookie($event)"
+    ><img src="../../../assets/img/cookie-close.svg" alt=""
+  /></a>
+</div>
+<!-- =============================== Cookie Policy End ========================--> 
+<!--  -->
+ 
