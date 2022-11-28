@@ -2539,7 +2539,7 @@ ngx-slick-carousel.left-product-carousel{
     .slick-list{
         padding: 0!important;  
         .slide {
-            @include media-query(min-sm){
+            @media (min-width:767px){
                 width: 100% !important;
             }
             img{

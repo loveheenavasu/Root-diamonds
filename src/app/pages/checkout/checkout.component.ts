@@ -1,10 +1,11 @@
 import { Component, ElementRef, Inject,Renderer2,OnInit ,ViewChild, NgModule} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { Params ,Router, ActivatedRoute} from '@angular/router';
+import { Params ,Router, ActivatedRoute,NavigationEnd} from '@angular/router';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { DOCUMENT } from '@angular/common';
 import { CategoryService } from 'src/app/services/category.service';
 import { HomeService } from 'src/app/services/home.service';
+import { Location } from '@angular/common'
 import {
   IPayPalConfig,
   ICreateOrderRequest, 
@@ -40,7 +41,7 @@ export class CheckoutComponent{
     checkUrl:boolean = false
     productPageLoading = false;
 
-    constructor(private formBuilder : FormBuilder, private Activeroute: ActivatedRoute,private router: Router,private homesrv : HomeService,private checkoutSrv : CheckoutService ,  private _renderer2: Renderer2, @Inject(DOCUMENT) private document: Document) {
+    constructor(private formBuilder : FormBuilder, private Activeroute: ActivatedRoute,private router: Router,private homesrv : HomeService,private checkoutSrv : CheckoutService ,  private _renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, private location: Location) {
       this.checkForm = new FormGroup({
         first_name: this.first_name,
         last_name: this.last_name,
@@ -54,6 +55,9 @@ export class CheckoutComponent{
     }
 
     ngOnInit() {
+
+      window.scrollTo(0, 0)
+
      
       this.checkUrl = window.location.href.includes('/checkout') ? true : false
       let url :any =  window.location.href.split('/')[4]
@@ -79,7 +83,8 @@ export class CheckoutComponent{
 
   get f() { return this.checkForm.controls; }
   changeRoute(){
-    this.router.navigate([`/`]) 
+    // this.router.navigate([`/`])
+    this.location.back() 
   }
 
   paypalConfig(){
@@ -169,5 +174,29 @@ export class CheckoutComponent{
 
   onSubmit(){
   }
+
+  isVisible13 = false;
+  isConfirmLoading13 = false;
+  termPolicy(): void {
+    setTimeout(() => {
+      this.isVisible13 = true;
+    }, 400); 
+  } 
+  handleCancel13(): void {
+    this.isVisible13 = false;
+  }
+  
+
+  isVisible14 = false;
+  isConfirmLoading14 = false;
+  returnPolicy(): void {
+    setTimeout(() => {
+      this.isVisible14 = true;
+    }, 400); 
+  } 
+  handleCancel14(): void {
+    this.isVisible14 = false;
+  }
+  
  
 }
