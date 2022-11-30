@@ -1346,7 +1346,8 @@ this.isWholeSaleVisible = true
   }
   handleCancel(): void {
     this.isVisible = false;
-    this.productDetail = {}
+    this.productDetail = {};
+    this.isWholeSaleChecked=false;
   }
 
   handleWholeSaleCancle(){

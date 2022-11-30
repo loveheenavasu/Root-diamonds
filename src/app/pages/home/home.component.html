@@ -904,7 +904,7 @@
                 <figure class="video_figure">
                       <img *ngIf="slide?.type == 'image' " src="{{ slide?.url }}" alt="" width="100%">
                       <div class="popup">
-                        <video *ngIf="slide?.type == 'video' " src="{{slide?.url}}" controls (canplay)="pauseVideo(videoplayer)" #videoPlayer>
+                        <video *ngIf="slide?.type == 'video' " src="{{slide?.url}}" autoplay loop  #videoPlayer>
                       </video>
                       </div>
                 </figure>
@@ -1239,9 +1239,10 @@
           nz-button
           nzType="default"
           nzSize="large"
+          (click)="memoriesStep2()"
           
         >
-        <!-- (click)="memoriesStep2()" -->
+        
           Upload your memories
         </button>
       </div>

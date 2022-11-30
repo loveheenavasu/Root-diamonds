@@ -730,12 +730,14 @@ export class CategoryComponent implements OnInit {
   isWholeSaleChecked = false
   changeValue(e:any){
     this.isWholeSaleChecked =  e.target.checked
+    
   }
   handleOk3(): void {
     this.isVisible3 = false;
   }
   handleCancel3(): void {
     this.isVisible3 = false; 
+    this.isWholeSaleChecked=false;
   }
   // Raw
   isVisible4 = false;
