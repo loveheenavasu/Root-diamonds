@@ -2964,7 +2964,26 @@ button{
     height: 60px;
     border-radius: 8px;
     margin-top: 18px;
-}
+    padding-left: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .nextbtn{
+        width: 65px;
+    }
+
+    .arrowright{
+        width: 20px;
+    }
+    svg{
+        stroke: white
+    }
+    &:hover{
+        svg {
+            fill: #000;
+                  stroke: black
+        }
+    }
 }
 
 .popup {
@@ -3014,4 +3033,5 @@ button{
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
 }

@@ -176,6 +176,7 @@
                                     name="email" 
                                     type="email"
                                     (keypress)='checkValidate()'
+                                    (change)="checkValidate()"
                                     ngClass="{'is-invalid':submitted && checkForm.controls.email.errors}" 
                                      class="form-control" id="floating7" placeholder="Email Address*" formControlName="email">
                                     <div

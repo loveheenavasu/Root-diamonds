@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-sm-4 col-4 ps-0">
                             <div class="africa ms-auto">
-                                <img src={{checkoutProduct?.owner_image}} alt="africa" class="img-fluid mb-2 order_img">
+                                <img src={{checkoutProduct?.owner_thumbnail_image}} alt="africa" class="img-fluid mb-2 order_img">
                                 <p class="aftrica_txt text-center text-white">{{checkoutProduct?.owner_name}}</p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                 <div class="cart_innr m-0">
                     <h3 class="cart_subtitle text-center">{{checkoutProduct?.name}}</h3>
                     <p class="text-center small_title mb-2">{{checkoutProduct?.Design?.metal && checkoutProduct?.Design?.metal +  ','}} {{checkoutProduct?.Design?.style &&  checkoutProduct?.Design?.style + ','}} {{ checkoutProduct?.Stone?.stone_clarity && 'Color/Clarity:' + checkoutProduct?.Stone?.stone_clarity}}{{checkoutProduct?.Stone?.stone_colour && '/' + checkoutProduct?.Stone?.stone_colour}}</p>
-                    <p *ngIf="checkoutProduct?.total != ''" class="thanku_price text-center m-0">{{checkoutProduct?.total}}</p>
+                    <p *ngIf="checkoutProduct?.total != ''" class="thanku_price text-center m-0"> $ {{checkoutProduct?.total}}</p>
                 </div>
 
             </div>

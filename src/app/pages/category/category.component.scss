@@ -456,14 +456,33 @@
         line-height: 22px;
     }
 }
+
 button{
     width: 450px;
     height: 60px;
     border-radius: 8px;
     margin-top: 18px;
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+.nextbtn1{
+    width: 65px;
 }
 
+.arrowright1{
+    width: 20px;
+}
+svg{
+    stroke: white
+}
+&:hover{
+    svg {
+        fill: #333333;
+        stroke:black;
+    }
+}
+}
 .remove-space{
     justify-content: unset !important;
 }
@@ -472,4 +491,4 @@ button{
     text-align: center !important;
 }
 // End =======================
-
+}
