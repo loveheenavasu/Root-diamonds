@@ -567,7 +567,7 @@
                       </div>
                     </div>
                   </div>
-                  <a  (click)="story1(product)" >View Landowner Stossry</a>
+                  <a  (click)="story1(product)" >View Landowner Story</a>
                   <h3 class="land-owner">{{product.owner_name}}</h3>
                 </div>
               </div>
@@ -1274,7 +1274,7 @@
                     <h4>Details</h4>
                   </div>
                   <div class="right-sec">
-                    <form class="memories-form">
+                    <form class="memories-form" ngNativeValidate>
                       <div class="form-group">
                         <label>Your First Name</label>
                         <input
@@ -1282,6 +1282,7 @@
                           nz-input
                           formControlName="userName"
                           placeholder=""
+                          required
                         />
                       </div>
                       <div class="form-group">
@@ -1291,15 +1292,17 @@
                           nz-input
                           formControlName="userName"
                           placeholder=""
+                          required
                         />
                       </div>
                       <div class="form-group">
                         <label>Your Email</label>
                         <input
-                          type="text"
+                          type="email"
                           nz-input
                           formControlName="userName"
                           placeholder=""
+                          required
                         />
                       </div>
                       <div class="form-group">
@@ -1309,9 +1312,11 @@
                           nz-input
                           formControlName="userName"
                           placeholder=""
+                          required
                         />
                       </div>
                       <button
+                      type="submit"
                         nz-button
                         class="large-btn"
                         [nzType]="'primary'"

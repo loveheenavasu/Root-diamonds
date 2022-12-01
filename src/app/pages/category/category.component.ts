@@ -9,10 +9,15 @@ import { HomeService } from "src/app/services/home.service";
 type filterModal = {
   metal: [];
   style: [];
+  carat: [];
   price: {
     min: "";
     max: "";
   };
+  color: [];
+  cut: [];
+  shape: [];
+  clarity: [];
 };
 type videoModal = {
   mime_type?: string;
@@ -44,17 +49,33 @@ export class CategoryComponent implements OnInit {
   filters: filterModal = {
     metal: [],
     style: [],
+    carat: [],
     price: { min: "", max: "" },
+    color: [],
+    cut: [],
+    shape: [],
+    clarity: [],
   };
   metalFilter: any = [];
+  caratFilter: any = [];
   styleFilter: any = [];
+  colorFilter: any = [];
+  cutFilter: any = [];
+  shapeFilter: any = [];
+  clarityFilter: any = [];
   rangeValue: any = [];
   metalVal: any = [];
+  caratSelectedval: any = [];
   styleSelectedVal: any = [];
+  colorSelectedVal: any = [];
+  cutSelectrdVal: any = [];
+  shapeSelectedVal: any = [];
+  claritySelectedVal: any = [];
   categoryFilter: any = [];
   categoryValue: any = [];
   setPriceValue: any = [];
   productDetail: any = [];
+  price: any = {};
   public startedPlay: boolean = false;
   public show: boolean = false;
   newPrice: number = 0;
@@ -100,7 +121,33 @@ export class CategoryComponent implements OnInit {
 
     this.ctgysrv.fetchFiltesr().subscribe((data: any) => {
       this.filters = data;
+
+      this.price = {
+        min: parseInt(this?.filters?.price?.min || "0"),
+        max: parseInt(this?.filters?.price?.max || "0") + 1,
+      };
+
       this.metalFilter = this.filters.metal.map((item) => {
+        return { label: item, value: item };
+      });
+
+      this.caratFilter = this.filters.carat.map((item) => {
+        return { label: item, value: item };
+      });
+
+      this.colorFilter = this.filters.color.map((item) => {
+        return { label: item, value: item };
+      });
+
+      this.cutFilter = this.filters.cut.map((item) => {
+        return { label: item, value: item };
+      });
+
+      this.shapeFilter = this.filters.shape.map((item) => {
+        return { label: item, value: item };
+      });
+
+      this.clarityFilter = this.filters.clarity.map((item) => {
         return { label: item, value: item };
       });
 
@@ -109,7 +156,7 @@ export class CategoryComponent implements OnInit {
       });
       this.rangeValue = [
         parseInt(data?.price?.min),
-        parseInt(data?.price?.max),
+        parseInt(data?.price?.max + 1),
       ];
     });
 
@@ -153,26 +200,47 @@ export class CategoryComponent implements OnInit {
   clearFilter(id: number) {
     this.productPageLoading = true;
     this.ctgysrv
-      .filterWiseProduct(id, "", "", "", "", "yes")
+      .filterWiseProduct(id, "", "", "", "", "yes", "", "", "", "", "", "")
       .subscribe((data: any) => {
         this.categoryWiseProduct = data;
         this.productPageLoading = false;
       });
     this.selectedTab = id;
     this.styleSelectedVal = [];
+    this.caratSelectedval = [];
     this.metalVal = [];
     this.setPriceValue = [];
+    this.colorSelectedVal = [];
+    this.cutSelectrdVal = [];
+    this.shapeSelectedVal = [];
+    this.claritySelectedVal = [];
     this.metalFilter = this.filters.metal.map((item) => {
       return { label: item, value: item };
     });
-
-    this.styleFilter = this.filters.style.map((item) => {
+    this.rangeValue = [
+      parseFloat(this.filters?.price?.min),
+      parseFloat(this.filters?.price?.max),
+    ];
+    this.caratFilter = this.filters.carat.map((item) => {
       return { label: item, value: item };
     });
-    this.rangeValue = [
-      parseInt(this.filters?.price?.min),
-      parseInt(this.filters?.price?.max),
-    ];
+
+    this.styleFilter = this.filters.carat.map((item) => {
+      return { label: item, value: item };
+    });
+
+    this.colorFilter = this.filters.color.map((item) => {
+      return { label: item, value: item };
+    });
+    this.cutFilter = this.filters.cut.map((item) => {
+      return { label: item, value: item };
+    });
+    this.shapeFilter = this.filters.shape.map((item) => {
+      return { label: item, value: item };
+    });
+    this.clarityFilter = this.filters.clarity.map((item) => {
+      return { label: item, value: item };
+    });
   }
   categoryOnChange(event: any) {
     this.categoryValue = [];
@@ -197,8 +265,8 @@ export class CategoryComponent implements OnInit {
     }
   }
   rangeOnChange(event: any) {
+    console.log("event", event);
     this.setPriceValue = event;
-    console.log("filter", this.setPriceValue);
   }
   styleOnChange(event: any) {
     this.styleSelectedVal = [];
@@ -209,6 +277,66 @@ export class CategoryComponent implements OnInit {
         }
       });
       this.styleSelectedVal = this.styleSelectedVal.toString();
+    }
+  }
+
+  caratOnChange(event: any) {
+    this.caratSelectedval = [];
+    if (event) {
+      event.forEach((e: any) => {
+        if (e?.checked) {
+          this.caratSelectedval.push(e.value);
+        }
+      });
+      this.caratSelectedval = this.caratSelectedval.toString();
+    }
+  }
+
+  colorOnChange(event: any) {
+    this.colorSelectedVal = [];
+    if (event) {
+      event.forEach((e: any) => {
+        if (e?.checked) {
+          this.colorSelectedVal.push(e.value);
+        }
+      });
+      this.colorSelectedVal = this.colorSelectedVal.toString();
+    }
+  }
+
+  cutOnChange(event: any) {
+    this.cutSelectrdVal = [];
+    if (event) {
+      event.forEach((e: any) => {
+        if (e?.checked) {
+          this.cutSelectrdVal.push(e.value);
+        }
+      });
+      this.cutSelectrdVal = this.cutSelectrdVal.toString();
+    }
+  }
+
+  shapeOnChange(event: any) {
+    this.shapeSelectedVal = [];
+    if (event) {
+      event.forEach((e: any) => {
+        if (e?.checked) {
+          this.shapeSelectedVal.push(e.value);
+        }
+      });
+      this.shapeSelectedVal = this.shapeSelectedVal.toString();
+    }
+  }
+
+  clarityOnChange(event: any) {
+    this.claritySelectedVal = [];
+    if (event) {
+      event.forEach((e: any) => {
+        if (e?.checked) {
+          this.claritySelectedVal.push(e.value);
+        }
+      });
+      this.claritySelectedVal = this.claritySelectedVal.toString();
     }
   }
 
@@ -223,7 +351,13 @@ export class CategoryComponent implements OnInit {
         this.styleSelectedVal,
         this.setPriceValue[0],
         this.setPriceValue[1],
-        "no"
+        "no",
+        "",
+        this.caratSelectedval,
+        this.claritySelectedVal,
+        this.colorSelectedVal,
+        this.cutSelectrdVal,
+        this.shapeSelectedVal
       )
       .subscribe((data: any) => {
         this.categoryWiseProduct = data;

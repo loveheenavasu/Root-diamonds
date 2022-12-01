@@ -94,35 +94,59 @@
                     <div class="range-value">
                       <div class="left">
                         <span>Min</span>
-                        <p class="value">${{filters?.price?.min}}</p>
+                        <p class="value">${{setPriceValue[0] || price?.min}}</p>
                       </div>
                       <div class="right">
                         <span>Max</span>
-                        <p class="value">${{filters?.price?.max}}</p>
+                        <p class="value">${{setPriceValue[1] || price?.max}}</p>
                       </div>
                     </div>
                     <nz-slider
                       nzRange
-                      [nzMax]="filters?.price?.max"
-                      [nzMin]="filters?.price?.min"
+                      [nzMax]="price?.max"
+                      [nzMin]="price?.min"
                       nzTooltipVisible="never"
                       [(ngModel)]="rangeValue"
                       (ngModelChange)="rangeOnChange($event)"
                     ></nz-slider>
                   </nz-collapse-panel>
-                  <nz-collapse-panel nzHeader="Metal" nzActive="false">
+                  <nz-collapse-panel nzHeader="Carat" nzActive="false">
                     <div class="checkbox-list">
                       <nz-checkbox-group
-                        [(ngModel)]="metalFilter"
-                        (ngModelChange)="metalOnChange($event)"
+                        [(ngModel)]="caratFilter"
+                        (ngModelChange)="caratOnChange($event)"
                       ></nz-checkbox-group>
                     </div>
                   </nz-collapse-panel>
-                  <nz-collapse-panel nzHeader="Style" nzActive="false">
+                  <nz-collapse-panel nzHeader="Color" nzActive="false">
                     <div class="checkbox-list">
                       <nz-checkbox-group
-                        [(ngModel)]="styleFilter"
-                        (ngModelChange)="styleOnChange($event)"
+                        [(ngModel)]="colorFilter"
+                        (ngModelChange)="colorOnChange($event)"
+                      ></nz-checkbox-group>
+                    </div>
+                  </nz-collapse-panel>
+                  <nz-collapse-panel nzHeader="Cut" nzActive="false">
+                    <div class="checkbox-list">
+                      <nz-checkbox-group
+                        [(ngModel)]="cutFilter"
+                        (ngModelChange)="cutOnChange($event)"
+                      ></nz-checkbox-group>
+                    </div>
+                  </nz-collapse-panel>
+                  <nz-collapse-panel nzHeader="Clarity" nzActive="false">
+                    <div class="checkbox-list">
+                      <nz-checkbox-group
+                        [(ngModel)]="clarityFilter"
+                        (ngModelChange)="clarityOnChange($event)"
+                      ></nz-checkbox-group>
+                    </div>
+                  </nz-collapse-panel>
+                  <nz-collapse-panel nzHeader="Shape" nzActive="false">
+                    <div class="checkbox-list">
+                      <nz-checkbox-group
+                        [(ngModel)]="shapeFilter"
+                        (ngModelChange)="shapeOnChange($event)"
                       ></nz-checkbox-group>
                     </div>
                   </nz-collapse-panel>
@@ -145,14 +169,14 @@
         <nz-tabset class="inner-tabs" (click)="getCategoryId(categoryProduct.term_id)">
          
             <!-- Category Start - Rings-->
-          <nz-tab nzTitle="{{categoryProduct.name}}" >
+          <nz-tab nzTitle="{{categoryProduct.name  }}" >
             <p class="'no_data_found" *ngIf="categoryProduct.products.length === 0"> No Data Found in {{categoryProduct.name}} category</p>
             <!-- Category Start -Polish -->
             <div class="category-outer polishedFilter">
               <div class="category-listing">
                 <!-- Listing  -->
                 <div class="inner-wrap">
-                  <div class="category-wrap" *ngFor="let polish of categoryProduct.products">
+                  <div class="category-wrap" *ngFor="let polish of categoryProduct.products ">
                     <!-- <p *ngIf="polish.products.length === 0"> No Data Found in {{polish.name}} category</p> -->
                     <div class="product-img">
                       <figure>
@@ -203,46 +227,70 @@
                     </li> -->
                   </ul>
                 </div>
-                <div class="filters-options">
-                  <a class="close-btn" (click)="polishedFilterClose($event)">
+                <div class="filters-options" >
+                  <a class="close-btn" (click)="polishedFilterClose($event) ">
                     <img src="../../../assets/img/close-light.svg" />
                   </a>
-                  <div class="filter-accordian">
+                  <div class="filter-accordian" >
                     <nz-collapse nzAccordion nzExpandIconPosition="right">
                       <nz-collapse-panel nzHeader="Price" nzActive="false">
                         <div class="range-value">
                           <div class="left">
                             <span>Min</span>
-                            <p class="value">${{filters?.price?.min}}</p>
+                            <p class="value">${{setPriceValue[0] || price?.min}}</p>
                           </div>
                           <div class="right">
                             <span>Max</span>
-                            <p class="value">${{filters?.price?.max}}</p>
+                            <p class="value">${{setPriceValue[1] || price?.max}}</p>
                           </div>
                         </div>
                         <nz-slider
                           nzRange
-                          [nzMax]="filters?.price?.max"
-                          [nzMin]="filters?.price?.min"
+                          [nzMax]="price?.max"
+                          [nzMin]="price?.min"
                           nzTooltipVisible="never"
                           [(ngModel)]="rangeValue"
                           (ngModelChange)="rangeOnChange($event)"
                         ></nz-slider>
                       </nz-collapse-panel>
                       
-                      <nz-collapse-panel nzHeader="Metal" nzActive="false">
+                      <nz-collapse-panel nzHeader="Carat" nzActive="false">
                         <div class="checkbox-list">
                           <nz-checkbox-group
-                            [(ngModel)]="metalFilter"
-                            (ngModelChange)="metalOnChange($event)"
+                            [(ngModel)]="caratFilter"
+                            (ngModelChange)="caratOnChange($event)"
                           ></nz-checkbox-group>
                         </div>
                       </nz-collapse-panel>
-                      <nz-collapse-panel nzHeader="Style" nzActive="false">
+                      <nz-collapse-panel nzHeader="Color" nzActive="false" *ngIf="categoryProduct.name === 'Polish' ">
                         <div class="checkbox-list">
                           <nz-checkbox-group
-                            [(ngModel)]="styleFilter"
-                            (ngModelChange)="styleOnChange($event)"
+                            [(ngModel)]="colorFilter"
+                            (ngModelChange)="colorOnChange($event)"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Cut" nzActive="false" *ngIf="categoryProduct.name === 'Polish' ">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="cutFilter"
+                            (ngModelChange)="cutOnChange($event)"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Clarity" nzActive="false" *ngIf="categoryProduct.name === 'Polish' ">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="clarityFilter"
+                            (ngModelChange)="clarityOnChange($event)"
+                          ></nz-checkbox-group>
+                        </div>
+                      </nz-collapse-panel>
+                      <nz-collapse-panel nzHeader="Shape" nzActive="false" *ngIf="categoryProduct.name === 'Polish' ">
+                        <div class="checkbox-list">
+                          <nz-checkbox-group
+                            [(ngModel)]="shapeFilter"
+                            (ngModelChange)="shapeSelectedVal($event)"
                           ></nz-checkbox-group>
                         </div>
                       </nz-collapse-panel>

@@ -121,10 +121,10 @@ export class HomeComponent implements OnInit {
       ],
     };
     this.ctgysrv
-      .filterWiseProduct(0, "", "", "", "", "no")
+      .filterWiseProduct(0, "", "", "", "", "no", "15", "", "", "", "", "")
       .subscribe((data: any) => {
         this.productList = data;
-        // console.log(this.productList, "this.pro")
+        // console.log(this.productList, "this.pro");
         this.productList.push(this.shopAll);
         // this.spinnerService.show();
       });
