@@ -1,0 +1,232 @@
+@use '../../../assets/scss/variables' as *;
+
+.success{
+    color: green;
+}
+.error{
+    color:red
+}
+
+.contact{
+    padding: 130px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+
+    @media(max-width:991px){
+        padding: 85px 0;
+    }
+   
+   
+.container{
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media (min-width: 1200px){
+    max-width: 1070px;
+    padding: 0 60px;
+}
+
+.row{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    @media(max-width:991px){
+        flex-direction: column;
+        margin: 0px;
+    }
+
+    .rightform{
+    margin: 0!important;
+    @media(max-width:991px){
+        padding-top: 50px;
+        width: 100%;
+    }
+    }
+}
+    
+    .Contactus {
+        list-style: square;
+        padding-right: 53px;
+        li{
+            font-size: 18px;
+            line-height: 25px;
+            font-weight: 500;
+            color: #fff!important;
+            font-family: PLayfairDisplay;
+            letter-spacing: 0;
+        }
+        
+    }
+.open_input{
+    border-bottom:  1px solid;
+    margin-bottom:30px;
+    width: 450px;
+
+    @media(max-width:991px){
+        width:100%
+    }
+
+    input{
+        // background-color: transparent;
+        // color: #fff;
+        // border: 0;
+        
+
+    padding: 25px 4px 6px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #505050;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 300;
+    color: #fff;
+    font-family: Poppins;
+    border-radius: 0;
+    text-align: left;
+        &:focus{
+         box-shadow: none;
+        } 
+    }
+    label{
+        padding: 0;
+        color: #fff;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 22px;
+        font-family: Poppins;
+        opacity: .8;
+        transform: none;
+    }
+}
+button{
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #fff;
+    font-family: Poppins;
+    padding: 18px 20px;
+    height: auto;
+    background-color: #333;
+    border: none;
+    text-align: left;
+    letter-spacing: 0px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    .nextbtn{
+        width: 106px;
+    }
+
+    .arrowright{
+        width: 20px;
+    }
+    svg{
+        stroke: white
+    }
+    &:hover{
+        svg {
+            fill: #000;
+                  stroke: black
+        }
+    }
+}
+button:hover{
+    background-color: #fff;
+    color: #000;
+}
+.contactfooter{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    width: 76%;
+    @media(max-width:991px){
+        margin-left: 50px;
+    }
+    @media(max-width:575px){
+        margin-left: 20px;
+        flex-direction: column;
+    }
+    .newyork{
+            margin-top: 22px;
+            width: calc(36% + 80px);
+            padding-right: 80px;
+            max-width: 244px;
+            @media(max-width:575px){
+                width: 100%;
+            }
+
+        h3{
+            color: #fff;
+            font-size: 18px;
+        }
+        p{
+            font-size: 14px;
+            line-height: 21px;
+            font-weight: 300;
+            color: #fff;
+            font-family: Poppins;
+            margin-bottom: 0;
+            opacity: .5;
+        }
+        a{
+            margin-top: 20px;
+            display: inline-block;
+            transition: .3s ease-in-out;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 21px;
+            font-weight: 300;
+            color: #fff;
+            font-family: Poppins;
+            margin-bottom: 0;
+            opacity: .5;
+        }
+        
+    }
+    .pennsylvania{
+        margin-top: 22px;
+        width: calc(64% - 80px);
+        padding-right: 0;
+        max-width: 217px;
+        @media(max-width:575px){
+            width: 100%;
+        }
+    h3{
+        color: #fff;
+        font-size: 18px;
+    }
+    p{
+        font-size: 14px;
+        line-height: 21px;
+        font-weight: 300;
+        color: #fff;
+        font-family: Poppins;
+        margin-bottom: 0;
+        opacity: .5;
+    }
+    a{
+        margin-top: 20px;
+        display: inline-block;
+        transition: .3s ease-in-out;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 21px;
+        font-weight: 300;
+        color: #fff;
+        font-family: Poppins;
+        margin-bottom: 0;
+        opacity: .5;
+    }
+    }
+}
+
+
+}
+}
