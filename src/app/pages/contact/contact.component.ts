@@ -21,10 +21,13 @@ export class ContactComponent implements OnInit {
   youremail: FormControl = new FormControl();
   phonenumber: FormControl = new FormControl();
   yourmessage: FormControl = new FormControl();
+
   handleBtnDisable: boolean = false;
   contactSuccessResponse: string = "";
   contactFailResponse: string = "";
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
 
   sendEmail() {
     this.handleBtnDisable = true;

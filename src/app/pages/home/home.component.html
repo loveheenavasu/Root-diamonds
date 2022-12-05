@@ -610,8 +610,8 @@
                      nzSize="large">{{product?.stock == 'outofstock' ? "Sold Out" : "Buy Now"}}</button>
                 </div>
                 <div class="share-memories">
-                  <p (click)="memoriesStep1()">Share Your Memories</p>
-                  <nz-avatar (click)="memoriesStep1()"
+                  <p (click)="memoriesStep1(product)">Share Your Memories</p>
+                  <nz-avatar (click)="memoriesStep1(product)"
                     nzIcon="user"
                     [nzSize]="49"
                     nzSrc="{{product.owner_thumbnail_image}}"
@@ -1273,14 +1273,14 @@
                     <h3>Enter Your</h3>
                     <h4>Details</h4>
                   </div>
-                  <div class="right-sec">
-                    <form class="memories-form" ngNativeValidate>
+                  <div class="right-sec" >
+                    <form class="memories-form"  [formGroup]="memoriesForm" ngNativeValidate (submit)="memoriesStep3nw()" autocomplete="off">
                       <div class="form-group">
                         <label>Your First Name</label>
                         <input
                           type="text"
                           nz-input
-                          formControlName="userName"
+                          formControlName="firstName"
                           placeholder=""
                           required
                         />
@@ -1290,7 +1290,7 @@
                         <input
                           type="text"
                           nz-input
-                          formControlName="userName"
+                          formControlName="lastName"
                           placeholder=""
                           required
                         />
@@ -1300,27 +1300,30 @@
                         <input
                           type="email"
                           nz-input
-                          formControlName="userName"
+                          formControlName="email"
                           placeholder=""
                           required
                         />
                       </div>
-                      <div class="form-group">
-                        <label>Product ID</label>
+                      <div class="form-group" >
+                        <label>Product SKU</label>
                         <input
                           type="text"
                           nz-input
-                          formControlName="userName"
+                          formControlName="productSKU"
                           placeholder=""
                           required
                         />
                       </div>
+                      <p *ngIf="productError" style="color:red">Product Not Found</p>
+                      <p *ngIf="productLoader">Loading ...</p>
                       <button
+                      *ngIf="!productLoader"
                       type="submit"
                         nz-button
                         class="large-btn"
                         [nzType]="'primary'"
-                        (click)="memoriesStep3nw()"
+                        
                       >
                         Next <img src="../../../assets/img/right-arrow.svg"  alt=""/>
                       </button>
@@ -1343,18 +1346,19 @@
                     <h4>Details</h4>
                   </div>
                   <div class="right-sec">
-                    <form class="memories-form">
+                    <form class="memories-form" [formGroup]="landOwnerForm" ngNativeValidate (submit)="memoriesStep4nw()">
                       <div class="form-group">
-                        <img src="../../../assets/img/upload-img.png" alt="" />
+                        <img src="{{productInfo?.owner_thumbnail_image}}" alt="" />
                       </div>
                       <div class="form-group">
                         <label>Landowners name</label>
                         <input
                           type="text"
                           nz-input
-                          formControlName="userName"
+                          formControlName="landownerName"
                           placeholder=""
-                          value="Sia Saquee"
+                          value="{{productInfo?.owner_name}}"
+                          required
                         />
                       </div>
                       <div class="form-group">
@@ -1362,23 +1366,26 @@
                         <input
                           type="text"
                           nz-input
-                          formControlName="userName"
+                          formControlName="diamondOrigin"
                           placeholder=""
-                          value="Kono, Sierra Leone"
+                          value="{{productInfo?.product_origin}}"
+                          required
                         />
                       </div>
                       <div class="form-group">
                         <label>Description</label>
                         <textarea
                           placeholder=" "
-                          value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+                          value="{{productInfo?.description}}"
+                          formControlName="description"
+                          required
                         ></textarea>
                       </div>
                       <button
                         nz-button
                         class="large-btn"
                         [nzType]="'primary'"
-                        (click)="memoriesStep4nw()"
+                        
                       >
                         Next <img src="../../../assets/img/right-arrow.svg"  alt=""/>
                       </button>
@@ -1403,6 +1410,8 @@
                     [nzMultiple]="true"
                     nzAction=""
                     nzListType="picture"
+                    [nzLimit]="10"
+                    nzAccept= "image/png, image/jpeg, image/jpg, image/svg+xml"
                     (nzChange)="handleChange($event)"
                   >
                     <p class="ant-upload-text">
@@ -1413,8 +1422,11 @@
                       jpeg types are supported.
                     </p>
                   </nz-upload>
-                  <div class="next-btn">
+                  <div class="next-btn" style="flex-direction: column;align-items: center;">
+                    <p *ngIf="handleImagebtn" style="color:red; margin-top:10px">Please select any Image</p>
+                    <p *ngIf="handleImagebtnLimit" style="color:red; margin-top:10px">You Can only select 10 Images</p>
                     <button
+                    style="margin-top:20px"
                     nz-button
                     class="large-btn"
                     [nzType]="'primary'"
@@ -1438,26 +1450,20 @@
                   <h3>Upload complete</h3>
                   <div class="uploaded-images">
                     <ul>
-                      <li>
+                      <li *ngFor="let file of imageList">
                         <figure>
-                          <img src="../../../assets/img/upload-1.png"  alt=""/>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure>
-                          <img src="../../../assets/img/upload-2.png" alt=""/>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure>
-                          <img src="../../../assets/img/upload-3.png" alt="" />
+                          <img src="{{file.thumbUrl}}"  alt=""/>
                         </figure>
                       </li>
                     </ul>
                   </div>
-                  <div class="bottom-btn">
-                    <button nz-button class="large-btn" [nzType]="'primary'">Edit</button>
+                  <div class="bottom-btn" style="justify-content:flex-end; flex-direction: column;
+                  align-items: flex-end;">
+                    <button style="display: none;" nz-button class="large-btn" [nzType]="'primary'">Edit</button>
+                    <p *ngIf="handlememoriesbtnerror" style="color:red; ">Something went wrong</p>
+                    <p *ngIf="handlememoriessucess" >Loading ...</p>
                     <button
+                    *ngIf="!handlememoriessucess"
                       nz-button
                       class="large-btn"
                       [nzType]="'primary'"
@@ -1465,6 +1471,7 @@
                     >
                       Next <img src="../../../assets/img/right-arrow.svg"  alt=""/>
                     </button>
+                    
                   </div>
                 </div>
               </ng-container>

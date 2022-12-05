@@ -41,16 +41,38 @@ export class HomeComponent implements OnInit {
 
   @ViewChild("videoPlayer") videoplayer: any;
   checkWholeSaleForm: FormGroup;
+  memoriesForm: FormGroup;
+  landOwnerForm: FormGroup;
   full_name: FormControl = new FormControl();
   company_name: FormControl = new FormControl();
   tax_no: FormControl = new FormControl();
   company_email: FormControl = new FormControl();
+
+  productSKU: FormControl = new FormControl();
+  firstName: FormControl = new FormControl();
+  lastName: FormControl = new FormControl();
+  email: FormControl = new FormControl();
+  landownerName: FormControl = new FormControl();
+  diamondOrigin: FormControl = new FormControl();
+  description: FormControl = new FormControl();
+
+  handleImagebtn: boolean = false;
+  handleImagebtnLimit: boolean = false;
+  handlememoriesbtnerror: boolean = false;
+  handlememoriessucess: boolean = false;
+
   classList: any;
   parentElement: any;
   loading = true;
 
   productList: any = []; //Array<productModel>   = [];
+  imageList: any = [];
+  productInfo: any = {};
+  productError: boolean = false;
+  productLoader: boolean = false;
+  proSku: string = "";
   productDetail: any = {};
+  productSkuDetails: any = {};
   checkIsWholeSale: boolean = false;
   apiData: any = {};
   videoSource: videoModal = {
@@ -75,6 +97,19 @@ export class HomeComponent implements OnInit {
       tax_no: this.tax_no,
       company_email: this.company_email,
     });
+
+    this.memoriesForm = new FormGroup({
+      productSKU: this.productSKU,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+    });
+
+    this.landOwnerForm = new FormGroup({
+      landownerName: this.landownerName,
+      diamondOrigin: this.diamondOrigin,
+      description: this.description,
+    });
   }
 
   ngOnInit() {
@@ -82,6 +117,7 @@ export class HomeComponent implements OnInit {
     //   this.productList = home
     //   console.log(this.productList,'this.productListewew')
     // })
+
     this.fillWholeSaleForm = false;
     this.shopAll = {
       term_id: 38,
@@ -1589,8 +1625,8 @@ export class HomeComponent implements OnInit {
 
   isVisible = false;
   showModal(product: object): void {
-    console.log(product, "product details");
     this.productDetail = product;
+    console.log(product, "product details");
     this.clearWholeSaleDetails();
     this.isVisible = true;
   }
@@ -1682,7 +1718,8 @@ export class HomeComponent implements OnInit {
   // Upload Your Memories ================================================
   // Modal 1
   isVisible1 = false;
-  memoriesStep1(): void {
+  memoriesStep1(product: object): void {
+    console.log(product, "product");
     this.isVisible1 = true;
   }
   handleCancel1(): void {
@@ -1691,6 +1728,9 @@ export class HomeComponent implements OnInit {
   // Modal 2
   isVisible2 = false;
   memoriesStep2(): void {
+    this.productLoader = false;
+    this.memoriesForm.reset();
+    this.imageList = [];
     this.isVisible2 = true;
   }
   handleCancel2(): void {
@@ -1737,16 +1777,41 @@ export class HomeComponent implements OnInit {
   handleChange({ file, fileList }: NzUploadChangeParam): void {
     const status = file.status;
     if (status !== "uploading") {
+      console.log(file, fileList);
+      this.imageList = fileList;
     }
   }
 
   memoriesStep3nw() {
-    const stepRemove: any = document.querySelector(".step-2-memories");
-    stepRemove.classList.remove("active");
-    const step2: any = document.querySelector(".sharememories-wrap");
-    step2.style.marginLeft = "-100%";
-    const step2Active: any = document.querySelector(".step-3-memories");
-    step2Active.classList.add("active");
+    //this.proSku = "SDR-2022-SS-0-15-OCT-K-LC-0109";
+    this.proSku = this.productSKU.value;
+    this.productError = false;
+    this.productLoader = true;
+
+    this.homesrv
+      .getProductBysku(this.proSku)
+      .subscribe((product: productModel[]) => {
+        this.productLoader = false;
+        this.productSkuDetails = product;
+        if (this.productSkuDetails?.data) {
+          this.productInfo = this.productSkuDetails?.data;
+          const stepRemove: any = document.querySelector(".step-2-memories");
+          stepRemove.classList.remove("active");
+          const step2: any = document.querySelector(".sharememories-wrap");
+          step2.style.marginLeft = "-100%";
+          const step2Active: any = document.querySelector(".step-3-memories");
+          step2Active.classList.add("active");
+        } else {
+          this.productError = true;
+        }
+      });
+
+    // const stepRemove: any = document.querySelector(".step-2-memories");
+    // stepRemove.classList.remove("active");
+    // const step2: any = document.querySelector(".sharememories-wrap");
+    // step2.style.marginLeft = "-100%";
+    // const step2Active: any = document.querySelector(".step-3-memories");
+    // step2Active.classList.add("active");
   }
   memoriesStep4nw() {
     const stepRemove: any = document.querySelector(".step-3-memories");
@@ -1757,20 +1822,60 @@ export class HomeComponent implements OnInit {
     step2Active.classList.add("active");
   }
   memoriesStep5nw() {
-    const stepRemove: any = document.querySelector(".step-4-memories");
-    stepRemove.classList.remove("active");
-    const step2: any = document.querySelector(".sharememories-wrap");
-    step2.style.marginLeft = "-300%";
-    const step2Active: any = document.querySelector(".step-5-memories");
-    step2Active.classList.add("active");
+    this.handleImagebtn = false;
+    this.handleImagebtnLimit = false;
+
+    if (this.imageList.length < 1) {
+      this.handleImagebtn = true;
+    } else if (this.imageList.length > 10) {
+      this.handleImagebtnLimit = true;
+    } else {
+      const stepRemove: any = document.querySelector(".step-4-memories");
+      stepRemove.classList.remove("active");
+      const step2: any = document.querySelector(".sharememories-wrap");
+      step2.style.marginLeft = "-300%";
+      const step2Active: any = document.querySelector(".step-5-memories");
+      step2Active.classList.add("active");
+    }
   }
   memoriesStep6nw() {
-    const stepRemove: any = document.querySelector(".step-5-memories");
-    stepRemove.classList.remove("active");
-    const step2: any = document.querySelector(".sharememories-wrap");
-    step2.style.marginLeft = "-400%";
-    const step2Active: any = document.querySelector(".step-6-memories");
-    step2Active.classList.add("active");
+    this.handlememoriesbtnerror = false;
+    this.handlememoriessucess = true;
+    const data = {
+      first_name: this.firstName.value,
+      last_name: this.lastName.value,
+      email: this.email.value,
+      productSKU: this.productSKU.value,
+      landowner_img: this.productInfo.owner_image,
+      landowner_name: this.landownerName.value || this.productInfo.owner_name,
+      landowner_origin:
+        this.diamondOrigin.value || this.productInfo.product_origin,
+      landowner_description:
+        this.description.value || this.productInfo.description,
+      upload_image: this.imageList,
+    };
+
+    this.homesrv.postShareMemories(data).subscribe((result: any) => {
+      this.handlememoriessucess = false;
+      if (result.data == "Thank you for sharing your memories with us.") {
+        const stepRemove: any = document.querySelector(".step-5-memories");
+        stepRemove.classList.remove("active");
+        const step2: any = document.querySelector(".sharememories-wrap");
+        step2.style.marginLeft = "-400%";
+        const step2Active: any = document.querySelector(".step-6-memories");
+        step2Active.classList.add("active");
+      } else {
+        this.handlememoriesbtnerror = true;
+        console.log("Error");
+      }
+    });
+
+    // const stepRemove: any = document.querySelector(".step-5-memories");
+    // stepRemove.classList.remove("active");
+    // const step2: any = document.querySelector(".sharememories-wrap");
+    // step2.style.marginLeft = "-400%";
+    // const step2Active: any = document.querySelector(".step-6-memories");
+    // step2Active.classList.add("active");
   }
   memoriesStepBack2() {
     const stepRemove: any = document.querySelector(".step-3-memories");
