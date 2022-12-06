@@ -98,28 +98,8 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  openLink(categoryName: string) {
-    localStorage.setItem("activeCatTab", categoryName);
-  }
-
-  ngOnInit(): void {
-    let activeCatTab: any = {
-      Polish: 1,
-      Raw: 2,
-      "Shop all": 0,
-    };
-    let activeTab: any = localStorage.getItem("activeCatTab");
-    this.outerIndex = activeCatTab[activeTab];
-
-    this.ctgysrv.fetchCategoryWiseProduct().subscribe((data: any) => {
-      this.categoryWiseProduct = data;
-      this.productPageLoading = false;
-      this.categoryFilter = this.categoryWiseProduct.map((item: any) => {
-        return { label: item.name, value: item.term_id };
-      });
-    });
-
-    this.ctgysrv.fetchFiltesr().subscribe((data: any) => {
+  initialFilterLoad(catID?: string | number) {
+    this.ctgysrv.fetchFiltesr(catID).subscribe((data: any) => {
       this.filters = data;
 
       this.price = {
@@ -159,6 +139,70 @@ export class CategoryComponent implements OnInit {
         parseInt(data?.price?.max + 1),
       ];
     });
+  }
+
+  openLink(categoryName: string) {
+    localStorage.setItem("activeCatTab", categoryName);
+  }
+
+  ngOnInit(): void {
+    let activeCatTab: any = {
+      Polish: 1,
+      Raw: 2,
+      "Shop all": 0,
+    };
+    let activeTab: any = localStorage.getItem("activeCatTab");
+    this.outerIndex = activeCatTab[activeTab];
+
+    this.ctgysrv.fetchCategoryWiseProduct().subscribe((data: any) => {
+      this.categoryWiseProduct = data;
+      this.productPageLoading = false;
+      this.categoryFilter = this.categoryWiseProduct.map((item: any) => {
+        return { label: item.name, value: item.term_id };
+      });
+    });
+
+    // this.ctgysrv.fetchFiltesr().subscribe((data: any) => {
+    //   this.filters = data;
+
+    //   this.price = {
+    //     min: parseInt(this?.filters?.price?.min || "0"),
+    //     max: parseInt(this?.filters?.price?.max || "0") + 1,
+    //   };
+
+    //   this.metalFilter = this.filters.metal.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+
+    //   this.caratFilter = this.filters.carat.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+
+    //   this.colorFilter = this.filters.color.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+
+    //   this.cutFilter = this.filters.cut.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+
+    //   this.shapeFilter = this.filters.shape.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+
+    //   this.clarityFilter = this.filters.clarity.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+
+    //   this.styleFilter = this.filters.style.map((item) => {
+    //     return { label: item, value: item };
+    //   });
+    //   this.rangeValue = [
+    //     parseInt(data?.price?.min),
+    //     parseInt(data?.price?.max + 1),
+    //   ];
+    // });
+    this.initialFilterLoad();
 
     // Scroll to Top ======================================
     setTimeout(() => {
@@ -197,7 +241,12 @@ export class CategoryComponent implements OnInit {
 
   selectedTab = 0;
 
+  getFilters(catID: string | number) {
+    this.initialFilterLoad(catID);
+  }
+
   clearFilter(id: number) {
+    this.appliedFilters = [];
     this.productPageLoading = true;
     this.ctgysrv
       .filterWiseProduct(id, "", "", "", "", "yes", "", "", "", "", "", "")
@@ -242,6 +291,7 @@ export class CategoryComponent implements OnInit {
       return { label: item, value: item };
     });
   }
+
   categoryOnChange(event: any) {
     this.categoryValue = [];
     if (event) {
@@ -340,9 +390,13 @@ export class CategoryComponent implements OnInit {
     }
   }
 
+  appliedFilters: any = [];
+
   getCategoryId(id: any) {}
+
   applyFilter(id: any) {
     this.productPageLoading = true;
+    this.appliedFilters = [];
 
     this.ctgysrv
       .filterWiseProduct(
@@ -363,7 +417,101 @@ export class CategoryComponent implements OnInit {
         this.categoryWiseProduct = data;
         this.productPageLoading = false;
       });
+
+    const filtersObj = {
+      carat: this.caratSelectedval?.split?.(",") || [],
+      color: this.colorSelectedVal?.split?.(",") || [],
+      cut: this.cutSelectrdVal?.split?.(",") || [],
+      clarity: this.claritySelectedVal?.split?.(",") || [],
+      shape: this.shapeSelectedVal?.split?.(",") || [],
+    };
+
+    for (let [key, value] of Object.entries(filtersObj)) {
+      value.forEach((val: any) => {
+        this.appliedFilters.push({
+          type: key,
+          value: val,
+        });
+      });
+    }
+
+    console.log(this.appliedFilters, "<><><><><>");
   }
+
+  // this.caratFilter = this.filters.carat.map((item) => {
+  //   return { label: item, value: item };
+  // });
+
+  // this.colorFilter = this.filters.color.map((item) => {
+  //   return { label: item, value: item };
+  // });
+
+  // this.cutFilter = this.filters.cut.map((item) => {
+  //   return { label: item, value: item };
+  // });
+
+  // this.shapeFilter = this.filters.shape.map((item) => {
+  //   return { label: item, value: item };
+  // });
+
+  // this.clarityFilter = this.filters.clarity.map((item) => {
+  //   return { label: item, value: item };
+  // });
+
+  removeFilter(filter: any, catId: any) {
+    // debugger;
+    this.appliedFilters = this.appliedFilters.filter(
+      (flt: any) => !(flt.key === filter.key && flt.value === filter.value)
+    );
+
+    let field: keyof CategoryComponent | "" = "";
+    let checkedField: keyof CategoryComponent | "" = "";
+
+    switch (filter.type) {
+      case "color":
+        field = "colorSelectedVal";
+        checkedField = "colorFilter";
+        break;
+      case "carat":
+        field = "caratSelectedval";
+        checkedField = "caratFilter";
+        break;
+      case "cut":
+        field = "cutSelectrdVal";
+        checkedField = "cutFilter";
+        break;
+      case "clarity":
+        field = "claritySelectedVal";
+        checkedField = "clarityFilter";
+        break;
+      case "shape":
+        checkedField = "shapeFilter";
+        field = "shapeSelectedVal";
+        break;
+    }
+
+    if (field) {
+      let values =
+        typeof this[field] === "string" ? this[field].split(",") : [];
+      values = values.filter((flt: any) => flt != filter.value);
+      this[field] = values.toString();
+
+      this.applyFilter(catId);
+    }
+
+    if (checkedField) {
+      this[checkedField] = this[checkedField].map((field: any) => {
+        if (field.value === filter.value) {
+          return {
+            ...field,
+            checked: false,
+          };
+        }
+        return field;
+      });
+    }
+  }
+
   // Shop All Filter
   shopAllFilter(event: any) {
     const ringFilter: any = document.querySelector(".shop-all-wrap");

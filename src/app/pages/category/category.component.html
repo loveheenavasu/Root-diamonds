@@ -6,7 +6,7 @@
       </div>
       </div>
     <nz-tabset *ngIf="categoryWiseProduct?.length > 0" nzCentered class="categories-tab" [nzSelectedIndex]="outerIndex">
-      <nz-tab  (nzClick)='clearFilter(0);openLink("Shop all")' nzTitle="Shop all" class="shop-all-tab">
+      <nz-tab  (nzClick)='clearFilter(0);getFilters("");openLink("Shop all")' nzTitle="Shop all" class="shop-all-tab">
         <div
           class="heading-filter-btn d-flex justify-content-between align-items-center"
         >
@@ -70,6 +70,9 @@
               <ul>
                 <li (click)="clearFilter(0)">
                   <a>Clear All</a>
+                </li>
+                <li *ngFor="let filter of appliedFilters">
+                  <span><a (click)="removeFilter(filter, '')" >x</a>{{filter.type}}: {{filter.value}}</span>
                 </li>
                 <!-- <li>
                   <span><a>x</a>Rings</span>
@@ -159,7 +162,7 @@
         <!-- Category End -->
       </nz-tab>
      
-      <nz-tab (nzClick)='clearFilter(categoryProduct.term_id);openLink(categoryProduct.name)' nzTitle={{categoryProduct.name}}  *ngFor="let categoryProduct of categoryWiseProduct">
+      <nz-tab (nzClick)='clearFilter(categoryProduct.term_id);getFilters(categoryProduct.term_id);openLink(categoryProduct.name)' nzTitle={{categoryProduct.name}}  *ngFor="let categoryProduct of categoryWiseProduct">
         
         <div
           class="heading-filter-btn d-flex justify-content-between align-items-center"
@@ -219,7 +222,10 @@
                     <li (click)="clearFilter(0)">
                       <a>Clear All</a>
                     </li>
-                    <!-- <li>
+                    <li *ngFor="let filter of appliedFilters">
+                      <span><a (click)="removeFilter(filter, categoryProduct.term_id)" >x</a>{{filter.type}}: {{filter.value}}</span>
+                    </li>
+                    <!-- <li >
                       <span><a>x</a>18k Yellow Gold</span>
                     </li>
                     <li>

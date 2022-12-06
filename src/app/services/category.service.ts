@@ -18,9 +18,9 @@ export class CategoryService {
       })
     );
   }
-  fetchFiltesr(): any {
+  fetchFiltesr(catID?: string | number): any {
     CommonService;
-    return this.cmnSrv.get("filters/").pipe(
+    return this.cmnSrv.get(`filters/?category_id=${catID}`).pipe(
       map((response) => {
         return response.data;
       })
