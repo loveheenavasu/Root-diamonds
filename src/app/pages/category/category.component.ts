@@ -100,6 +100,7 @@ export class CategoryComponent implements OnInit {
 
   initialFilterLoad(catID?: string | number) {
     this.ctgysrv.fetchFiltesr(catID).subscribe((data: any) => {
+      this.productPageLoading = false;
       this.filters = data;
 
       this.price = {
@@ -144,7 +145,7 @@ export class CategoryComponent implements OnInit {
   openLink(categoryName: string) {
     localStorage.setItem("activeCatTab", categoryName);
   }
-
+  onCatID: string = "";
   ngOnInit(): void {
     let activeCatTab: any = {
       Polish: 1,
@@ -156,10 +157,14 @@ export class CategoryComponent implements OnInit {
 
     this.ctgysrv.fetchCategoryWiseProduct().subscribe((data: any) => {
       this.categoryWiseProduct = data;
-      this.productPageLoading = false;
       this.categoryFilter = this.categoryWiseProduct.map((item: any) => {
+        if (activeTab == item.name) {
+          this.onCatID = item.term_id;
+        }
         return { label: item.name, value: item.term_id };
       });
+
+      this.initialFilterLoad(this.onCatID || "");
     });
 
     // this.ctgysrv.fetchFiltesr().subscribe((data: any) => {
@@ -202,7 +207,6 @@ export class CategoryComponent implements OnInit {
     //     parseInt(data?.price?.max + 1),
     //   ];
     // });
-    this.initialFilterLoad();
 
     // Scroll to Top ======================================
     setTimeout(() => {
