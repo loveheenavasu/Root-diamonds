@@ -889,7 +889,9 @@
   (nzOnOk)="handleOk()"
   nzFooter="null"
   nzCentered="true"
-  nzClassName="product-modal"
+  nzClassName="product-modal wholeSaleModal"
+    [nzBodyStyle]="{ height: '100%' }"
+  [nzStyle]="{ height: '95%' }"
   nzWidth="1440px"
 >
   <ng-container *nzModalContent>
@@ -1057,7 +1059,9 @@
   (nzOnOk)="handleOkEaring()"
   nzFooter="null"
   nzCentered="true"
-  nzClassName="product-modal"
+  nzClassName="product-modal wholeSaleModal"
+  [nzBodyStyle]="{ height: '100%' }"
+  [nzStyle]="{ height: '95%' }"
   nzWidth="1440px"
 >
   <ng-container *nzModalContent>
@@ -1257,8 +1261,10 @@
   [nzContent]="modalContent2"
   nzFooter="null"
   nzCentered="true"
-  nzClassName="share-memories-step"
-  nzWidth="1280px"
+  nzClassName="share-memories-step wholeSaleModal"
+  [nzBodyStyle]="{ height: '100%' }"
+  [nzStyle]="{ height: '100%' }"
+  nzWidth="1440px"
   nzMask="false"
 >
   <ng-template #modalContent2>
@@ -1695,7 +1701,9 @@
   (nzOnOk)="handleOk()"
   nzFooter="null"
   nzCentered="true"
-  nzClassName="product-modal"
+  nzClassName="product-modal wholeSaleModal"
+  [nzBodyStyle]="{ height: '100%' }"
+  [nzStyle]="{ height: '95%' }"
   nzWidth="1440px"
 >
   <ng-container *nzModalContent>
@@ -1712,10 +1720,10 @@
           > -->
           <figure>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 offset-md-1">
               <h1 class="rd-mb-5 fade-top">  Company Details </h1>
             </div>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <form class="form_block" ngNativeValidate [formGroup]="checkWholeSaleForm" (ngSubmit)="onSubmitWholeSale(true)" autocomplete="off">
                     <div class="row">
                         <div class="col-md-12">

@@ -49,21 +49,48 @@
         </li> 
       </ul> -->
       <ul class="top-menu">
-        <!-- <li>
-          <a (click)="navigate();close();homeActive()">About Us</a>
+           <li *ngIf="isContactUrl">
+          <a (click)="rings('Polish');close();">Polish Diamonds</a>
         </li>
-        <li>
-          <a (click)="navigate();close();homeActive()">Our Commitment</a>
+        <li *ngIf="isContactUrl">
+          <a (click)="rings('Raw');close();">Raw Diamonds</a>
         </li>
-        <li>
-          <a (click)="navigate();close();homeActive()">Accountability</a>
-        </li> -->
+        <li *ngIf="isContactUrl">
+          <a (click)="rings('Shop all');close();">Shop All</a>
+        </li>
         <li>
           <a (click)="contact();close();">Contact Us</a>
         </li>
       </ul>      
     </div>
     <div class="social-copyright">
+      <ul>
+        <li>
+          <a>
+            <img src="../../../assets/img/instagram.svg" alt="" />
+          </a>
+        </li>
+        <li>
+          <a>
+            <img src="../../../assets/img/facebook.svg" alt="" />
+          </a>
+        </li>
+        <li>
+          <a>
+            <img src="../../../assets/img/youtube.svg" alt="" />
+          </a>
+        </li>
+        <li>
+          <a>
+            <img src="../../../assets/img/linkedin.svg" alt="" />
+          </a>
+        </li>
+        <li>
+          <a>
+            <img src="../../../assets/img/twitter.svg" alt="" />
+          </a>
+        </li>
+      </ul>
       <p>Copyright © 2021 Root Diamonds. All Rights Reserved.</p>
     </div>
   </ng-container>

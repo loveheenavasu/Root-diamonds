@@ -28,7 +28,7 @@
                 <div class="inner-wrap">
                   <!-- Listing  -->
                   <div class="category-wrap" *ngFor="let categoryProduct of category.products">
-                    <div class="product-img">
+                    <div class="product-img" (click)="showModal3(categoryProduct)">
                       <figure>
                         <img src="{{ categoryProduct.image }}" alt="" />
                       </figure>
@@ -40,7 +40,7 @@
                       <!-- <h5 class="product-size" *ngIf="categoryProduct?.Stone != ''" (click)="showModal3(categoryProduct?.id)">{{ categoryProduct?.Stone?.stone_colour }}/ {{categoryProduct?.Stone?.stone_clarity}}</h5> -->
                       <h5 class="product-size" *ngIf="categoryProduct?.Stone != ''">{{categoryProduct?.product_basic_details}}</h5>
                      
-                      <h6 class="product-price">${{ categoryProduct.price }} USD</h6>
+                      <h6 class="product-price">{{categoryProduct.stock != "outofstock" ? '$' + categoryProduct.price + ' USD' : "SOLD OUT"}} </h6>
                     </div>
                     <div class="product-overlay">
                       <div class="owner-img">
@@ -172,7 +172,7 @@
         <nz-tabset class="inner-tabs" (click)="getCategoryId(categoryProduct.term_id)">
          
             <!-- Category Start - Rings-->
-          <nz-tab nzTitle="{{categoryProduct.name  }}" >
+          <nz-tab nzTitle="{{categoryProduct.name  == 'Polish' ? 'Polished diamonds' : categoryProduct.name+' diamonds'}}" >
             <p class="'no_data_found" *ngIf="categoryProduct.products.length === 0"> No Data Found in {{categoryProduct.name}} category</p>
             <!-- Category Start -Polish -->
             <div class="category-outer polishedFilter">
@@ -181,7 +181,7 @@
                 <div class="inner-wrap">
                   <div class="category-wrap" *ngFor="let polish of categoryProduct.products ">
                     <!-- <p *ngIf="polish.products.length === 0"> No Data Found in {{polish.name}} category</p> -->
-                    <div class="product-img">
+                    <div class="product-img" (click)="showModal3(polish)">
                       <figure>
                         <img src="{{ polish.image }}" alt="" />
                       </figure>
@@ -191,7 +191,7 @@
                         {{ polish.name }}
                       </h4>
                       <h5 class="product-size" >{{ polish?.product_basic_details }}</h5>
-                      <h6 class="product-price" >${{ polish?.price }} USD</h6>
+                      <h6 class="product-price" >{{polish.stock != "outofstock" ? '$' + polish.price + ' USD' : "SOLD OUT"}}</h6>
                     </div>
                     <div class="product-overlay">
                       <div class="owner-img">
@@ -1147,7 +1147,9 @@
   (nzOnOk)="handleOk()"
   nzFooter="null"
   nzCentered="true"
-  nzClassName="product-modal"
+  nzClassName="product-modal wholeSaleModal"
+  [nzBodyStyle]="{ height: '100%' }"
+  [nzStyle]="{ height: '95%' }"
   nzWidth="1440px"
 >
   <ng-container *nzModalContent>
@@ -1164,10 +1166,10 @@
           > -->
           <figure>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 offset-md-1">
               <h1 class="rd-mb-5 fade-top">  Company Details </h1>
             </div>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <form class="form_block" ngNativeValidate [formGroup]="checkWholeSaleForm" (ngSubmit)="onSubmitWholeSale(true)"  autocomplete="off">
                     <div class="row">
                         <div class="col-md-12">

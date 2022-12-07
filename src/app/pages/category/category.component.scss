@@ -1,5 +1,5 @@
 @use '../../../assets/scss/variables' as *;
- 
+
 @media (min-width:768px){
     .container{
         max-width:100%;
@@ -28,7 +28,7 @@
 // category =======================
 .shop-sec-inner{
     background-color:$rd-shop-bg ;
-    padding: 30px 15px;  
+    padding: 100px 15px 98px;  
     min-height: 100vh;
     @include media-query(lg){
         padding-left: 40px;
@@ -169,6 +169,7 @@
                 }
                 .product-img{
                     position: relative;
+                    cursor: pointer;
                     figure{
                         width: 100%;
                         height: 140px;

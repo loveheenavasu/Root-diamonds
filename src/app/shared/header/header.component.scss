@@ -146,10 +146,10 @@ header{
     }
     &.changed{
         @include media-query-height(xxxl){
-            padding-top: 20px;
+            padding-top: 12px;
         }
         @include media-query-height(sm){
-            padding-top: 15px;
+            padding-top: 8px;
         }
         @include media-query(sm){
             .menu-icon{

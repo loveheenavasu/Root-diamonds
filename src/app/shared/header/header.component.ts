@@ -20,6 +20,7 @@ interface Person {
 })
 export class HeaderComponent implements OnInit {
   checkUrl: boolean = false;
+  isContactUrl: boolean = false;
   constructor(
     private router: Router,
 
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
       if (data instanceof NavigationEnd) {
         this.checkUrl =
           data.url.includes("checkout") || data.url.includes("order_success");
+        this.isContactUrl = data.url.includes("contact");
       }
     });
   }
@@ -84,8 +86,10 @@ export class HeaderComponent implements OnInit {
   navigate() {
     this.router.navigate(["/"]);
   }
-  rings() {
-    this.router.navigate(["/category/1/0"]);
+  rings(tabCatName: string) {
+    localStorage.setItem("activeCatTab", tabCatName);
+
+    this.router.navigate(["/category/0/0"]);
   }
   earings() {
     this.router.navigate(["/category/1/1"]);

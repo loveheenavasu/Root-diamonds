@@ -23,7 +23,20 @@ body{
     background-color: $rd-black;
     font-style: normal;
     height: auto; 
-    
+    .wholeSaleModal {
+        .ant-modal-content{
+            height:100%;
+        }
+    }
+    .carousel2{
+        .slick-slide{
+            &:nth-of-type(1){
+                @media (min-width:1440px) {
+                        min-width: 655px;
+                }
+            }
+        }
+    }
 } 
 body:not(.home):not(.fixed-header){
     header{
@@ -1781,13 +1794,12 @@ ngx-slick-carousel.carousel1{
 .share-memories-step{
     height: calc(100% - 120px);
     max-height: 864px;
-    max-width: calc(100% - 60px);
+    max-width: 100%;
     @include media-query-height(lg){
         height: calc(100% - 82px);
     }
     @include media-query-height(md){
         height: calc(100% - 60px);
-        margin: 30px auto!important;
     }
     @include media-query(lg){
         max-height: unset;
@@ -3058,27 +3070,7 @@ a,button{
 
 // Term and Condition Popup End ==============================================
 .ant-modal:not(.stories-modal) { 
-    margin: 60px auto;
-    @include media-query-height(md){
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-    @include media-query-height(sm){
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
-    @include media-query(lg){
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    @include media-query(sm){
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-    @include media-mobile(md){
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+    margin: 0 auto;
 }
 @media (min-width:575px) and (max-width:767px) and (orientation : landscape)  {
     .their-stories-slider{
