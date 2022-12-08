@@ -28,6 +28,10 @@ body{
             height:100%;
         }
     }
+    .right-product-owner{
+        @media (min-width:1440px) {
+            height: 475px;
+    }
     .carousel2{
         .slick-slide{
             &:nth-of-type(1){
@@ -37,6 +41,7 @@ body{
             }
         }
     }
+}
 } 
 body:not(.home):not(.fixed-header){
     header{

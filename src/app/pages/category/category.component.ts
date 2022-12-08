@@ -296,102 +296,89 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  categoryOnChange(event: any) {
-    this.categoryValue = [];
+  handleSelected(event: any, selVal: any, type: string) {
     if (event) {
-      event.forEach((el: any) => {
-        if (el?.checked) {
-          this.categoryValue.push(el.value);
+      event.forEach((e: any) => {
+        const index = this.appliedFilters.findIndex(
+          (item: any) => item.value == e.value
+        );
+        if (e?.checked) {
+          selVal.push(e.value);
+          if (index < 0) {
+            this.appliedFilters.push({
+              type,
+              value: e.value,
+            });
+          }
+        } else {
+          if (index > -1) {
+            this.appliedFilters.splice(index, 1);
+          }
         }
       });
-      this.categoryValue = this.categoryValue.toString();
+      return selVal;
     }
+  }
+
+  categoryOnChange(event: any) {
+    this.categoryValue = [];
+    this.handleSelected(event, this.categoryValue, "category");
   }
   metalOnChange(event: any) {
     this.metalVal = [];
-    if (event) {
-      event.forEach((el: any) => {
-        if (el?.checked) {
-          this.metalVal.push(el.value);
-        }
-      });
-      this.metalVal = this.metalVal.toString();
-    }
+    this.handleSelected(event, this.metalVal, "metal");
   }
   rangeOnChange(event: any) {
-    console.log("event", event);
     this.setPriceValue = event;
   }
   styleOnChange(event: any) {
     this.styleSelectedVal = [];
-    if (event) {
-      event.forEach((ev: any) => {
-        if (ev?.checked) {
-          this.styleSelectedVal.push(ev.value);
-        }
-      });
-      this.styleSelectedVal = this.styleSelectedVal.toString();
-    }
+    this.handleSelected(event, this.styleSelectedVal, "style");
   }
 
   caratOnChange(event: any) {
     this.caratSelectedval = [];
-    if (event) {
-      event.forEach((e: any) => {
-        if (e?.checked) {
-          this.caratSelectedval.push(e.value);
-        }
-      });
-      this.caratSelectedval = this.caratSelectedval.toString();
-    }
+    this.caratSelectedval = this.handleSelected(
+      event,
+      this.caratSelectedval,
+      "carat"
+    ).toString();
   }
 
   colorOnChange(event: any) {
     this.colorSelectedVal = [];
-    if (event) {
-      event.forEach((e: any) => {
-        if (e?.checked) {
-          this.colorSelectedVal.push(e.value);
-        }
-      });
-      this.colorSelectedVal = this.colorSelectedVal.toString();
-    }
+    this.colorSelectedVal = this.handleSelected(
+      event,
+      this.colorSelectedVal,
+      "color"
+    ).toString();
   }
 
   cutOnChange(event: any) {
     this.cutSelectrdVal = [];
-    if (event) {
-      event.forEach((e: any) => {
-        if (e?.checked) {
-          this.cutSelectrdVal.push(e.value);
-        }
-      });
-      this.cutSelectrdVal = this.cutSelectrdVal.toString();
-    }
+    this.cutSelectrdVal = this.handleSelected(
+      event,
+      this.cutSelectrdVal,
+      "cut"
+    ).toString();
   }
 
   shapeOnChange(event: any) {
     this.shapeSelectedVal = [];
-    if (event) {
-      event.forEach((e: any) => {
-        if (e?.checked) {
-          this.shapeSelectedVal.push(e.value);
-        }
-      });
-      this.shapeSelectedVal = this.shapeSelectedVal.toString();
-    }
+    this.shapeSelectedVal = this.handleSelected(
+      event,
+      this.shapeSelectedVal,
+      "shape"
+    ).toString();
   }
 
   clarityOnChange(event: any) {
     this.claritySelectedVal = [];
-    if (event) {
-      event.forEach((e: any) => {
-        if (e?.checked) {
-          this.claritySelectedVal.push(e.value);
-        }
-      });
-      this.claritySelectedVal = this.claritySelectedVal.toString();
-    }
+    this.claritySelectedVal = this.handleSelected(
+      event,
+      this.claritySelectedVal,
+      "clarity"
+    ).toString();
   }
 
   appliedFilters: any = [];
@@ -400,8 +387,10 @@ export class CategoryComponent implements OnInit {
 
   applyFilter(id: any) {
     this.productPageLoading = true;
-    this.appliedFilters = [];
-
+    // this.appliedFilters = [];
+    this.appliedFilters = this.appliedFilters.map((item: any) => {
+      return { ...item, status: true };
+    });
     this.ctgysrv
       .filterWiseProduct(
         id || this.selectedTab,
@@ -422,24 +411,22 @@ export class CategoryComponent implements OnInit {
         this.productPageLoading = false;
       });
 
-    const filtersObj = {
-      carat: this.caratSelectedval?.split?.(",") || [],
-      color: this.colorSelectedVal?.split?.(",") || [],
-      cut: this.cutSelectrdVal?.split?.(",") || [],
-      clarity: this.claritySelectedVal?.split?.(",") || [],
-      shape: this.shapeSelectedVal?.split?.(",") || [],
-    };
+    // const filtersObj = {
+    //   carat: this.caratSelectedval?.split?.(",") || [],
+    //   color: this.colorSelectedVal?.split?.(",") || [],
+    //   cut: this.cutSelectrdVal?.split?.(",") || [],
+    //   clarity: this.claritySelectedVal?.split?.(",") || [],
+    //   shape: this.shapeSelectedVal?.split?.(",") || [],
+    // };
 
-    for (let [key, value] of Object.entries(filtersObj)) {
-      value.forEach((val: any) => {
-        this.appliedFilters.push({
-          type: key,
-          value: val,
-        });
-      });
-    }
-
-    console.log(this.appliedFilters, "<><><><><>");
+    // for (let [key, value] of Object.entries(filtersObj)) {
+    //   value.forEach((val: any) => {
+    //     this.appliedFilters.push({
+    //       type: key,
+    //       value: val,
+    //     });
+    //   });
+    // }
   }
 
   // this.caratFilter = this.filters.carat.map((item) => {
@@ -463,11 +450,9 @@ export class CategoryComponent implements OnInit {
   // });
 
   removeFilter(filter: any, catId: any) {
-    // debugger;
     this.appliedFilters = this.appliedFilters.filter(
       (flt: any) => !(flt.key === filter.key && flt.value === filter.value)
     );
-
     let field: keyof CategoryComponent | "" = "";
     let checkedField: keyof CategoryComponent | "" = "";
 
@@ -499,10 +484,10 @@ export class CategoryComponent implements OnInit {
         typeof this[field] === "string" ? this[field].split(",") : [];
       values = values.filter((flt: any) => flt != filter.value);
       this[field] = values.toString();
-
-      this.applyFilter(catId);
+      if (filter?.status) {
+        this.applyFilter(catId);
+      }
     }
-
     if (checkedField) {
       this[checkedField] = this[checkedField].map((field: any) => {
         if (field.value === filter.value) {

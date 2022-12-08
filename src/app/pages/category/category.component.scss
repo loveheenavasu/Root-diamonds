@@ -345,8 +345,7 @@
         &:not(.active){ 
             .filter-sidebar{ 
                 .close-btn,.selected-filters{
-                    visibility: hidden;
-                    opacity: 0;
+                    visibility: visible;
                 }
             }
         }
@@ -361,7 +360,7 @@
             @include filter-sidebar;
             margin-top: 100px;
             .selected-filters{
-                visibility: hidden;
+                visibility: visible;
             }
         } 
         &.active{

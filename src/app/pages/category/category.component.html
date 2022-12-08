@@ -16,7 +16,7 @@
             Filter
           </a>
         </div>
-        <div  class="d-flex shop-all-wrap" *ngFor="let category of categoryWiseProduct" >
+        <div  class="d-flex shop-all-wrap" *ngFor="let category of categoryWiseProduct; let i = index" >
           <div class="shopall-categories">
             <!-- Category Start -Polish -->
             <div class="sub-heading">
@@ -66,12 +66,12 @@
          
           </div>
           <div class="filter-sidebar {{productPageLoading ? 'removeZIndex' : ''}}">
-            <div class="selected-filters">
+            <div class="selected-filters" *ngIf="i==0">
               <ul>
-                <li (click)="clearFilter(0)">
+                <li (click)="clearFilter(0)" *ngIf="appliedFilters?.length > 0">
                   <a>Clear All</a>
                 </li>
-                <li *ngFor="let filter of appliedFilters">
+                <li *ngFor="let filter of appliedFilters" >
                   <span><a (click)="removeFilter(filter, '')" >x</a>{{filter.type}}: {{filter.value}}</span>
                 </li>
                 <!-- <li>
@@ -219,7 +219,7 @@
                 </a>
                 <div class="selected-filters">
                   <ul>
-                    <li (click)="clearFilter(0)">
+                    <li (click)="clearFilter(0)" *ngIf="appliedFilters?.length > 0">
                       <a>Clear All</a>
                     </li>
                     <li *ngFor="let filter of appliedFilters">
