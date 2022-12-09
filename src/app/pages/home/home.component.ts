@@ -7,6 +7,7 @@ import { NzUploadChangeParam } from "ng-zorro-antd/upload";
 import { CategoryService } from "src/app/services/category.service";
 import { CheckoutService } from "src/app/services/checkout.service";
 import { HomeService } from "src/app/services/home.service";
+
 // import { NgxSpinnerService } from 'ngx-spinner';
 
 type productModel = {
@@ -1626,7 +1627,7 @@ export class HomeComponent implements OnInit {
   isVisible = false;
   showModal(product: object): void {
     this.productDetail = product;
-    console.log(product, "product details");
+    // console.log(product, "product details");
     this.clearWholeSaleDetails();
     this.isVisible = true;
   }

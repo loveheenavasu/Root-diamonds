@@ -1,10 +1,10 @@
 <!-- =============== shop section  =============== -->
 <div class="shop-sec-inner">
   <div class="container">
-    <div *ngIf="productPageLoading"  class="spinner-class">
+    <!-- <div *ngIf="productPageLoading"  class="spinner-class">
       <div class="loader">
       </div>
-      </div>
+      </div> -->
     <nz-tabset *ngIf="categoryWiseProduct?.length > 0" nzCentered class="categories-tab" [nzSelectedIndex]="outerIndex">
       <nz-tab  (nzClick)='clearFilter(0);getFilters("");openLink("Shop all")' nzTitle="Shop all" class="shop-all-tab">
         <div
@@ -961,10 +961,10 @@
       </div>
     </div>
 
-    <div *ngIf="productPageLoading"  class="spinner-class">
+    <!-- <div *ngIf="productPageLoading"  class="spinner-class">
       <div class="loader">
       </div>
-      </div>
+      </div> -->
   </ng-container>
 </nz-modal>
 <!-- Raw -->
