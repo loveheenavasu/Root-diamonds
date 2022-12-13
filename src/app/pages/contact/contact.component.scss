@@ -44,19 +44,68 @@
         padding-top: 50px;
         width: 100%;
     }
+
+    .appointclass{
+        margin: 10px 0px 30px;
+        border: none;
+        width: 100%;
+        align-items: center;
+        label{
+            margin: 0px 8px 0px 0px;
+            width: 100%;
+        }
+
+        .ant-radio-group{
+            padding-top: 25px;
+        }
+        span{
+            padding-left: 10px;
+        }
+        
+        .custom-radio{
+            display: flex;
+            div{
+                display: flex;
+                padding-top: 50px;
+            }
+     
+            label{
+                width: 160px;
+            }
+            input{
+                width: 40px;
+                accent-color: #b9863c;
+            }
+           
+        }
+    }
+    
     }
 }
     
     .Contactus {
         list-style: disc;
         padding-right: 53px;
+
+        .activeclass{
+            color:#fff;
+        }
+        .disactive{
+            color: #333;
+            list-style: none;
+        }
+        
         li{
             font-size: 18px;
             line-height: 25px;
             font-weight: 500;
-            color: #fff!important;
             font-family: PLayfairDisplay;
             letter-spacing: 0;
+            margin-top: 15px;
+            width: 190px;
+        }
+        li:hover{
+            color: #fff;
         }
         
     }
@@ -91,6 +140,9 @@
         &:focus{
          box-shadow: none;
         } 
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(100%);
     }
     label{
         padding: 0;

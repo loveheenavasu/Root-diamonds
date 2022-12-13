@@ -1,50 +1,52 @@
 <div class="contact">
 <div class="container">
-    <div class="row">
+    <div class="row d-flex justify-content-between">
         <div class="col-md-6">
             <ul class="Contactus ">
-                <li >Contact Us </li>
+                <li class="{{ handleBtncontactus == 'contact'? 'activeclass' : 'disactive'}}"(click)="changeForm('contact')">Contact Us </li>
+                <li  class="{{ handleBtncontactus  == 'appointment'? 'activeclass' : 'disactive'}}"(click)="changeForm('appointment')">Make an Appointment</li>
             </ul>
          
         </div>
-          <div class="col-md-6 rightform">
+          <div  *ngIf="handleBtncontactus == 'contact'"  class="col-md-6 rightform">
             <form class="form_block" ngNativeValidate [formGroup]="contactus" (submit)="sendEmail()" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-floating open_input">
-                            <input type="text" class="form-control" id="floatingInput"
+                            <input type="text" class="form-control" id="yourname"
                                 formControlName="yourname"
                                 required>
-                            <label for="floatingInput">Your Name</label>
+                            <label for="yourname">Your Name</label>
                         </div>
 
                         <div class="form-floating open_input">
-                          <input type="email" class="form-control" id="floatingInput"
+                          <input type="email" class="form-control" id="youremail"
                               formControlName="youremail"
                               required>
-                          <label for="floatingInput">Your Email</label>
+                          <label for="youremail">Your Email</label>
                       </div>
 
                       <div class="form-floating open_input">
-                        <input type="text" class="form-control" id="floatingInput"
+                        <input type="text" class="form-control" id="phonenumber"
                            formControlName="phonenumber"
                             required>
-                        <label for="floatingInput">Your Phone Number </label>
+                        <label for="phonenumber">Your Phone Number </label>
                     </div>
 
                     <div class="form-floating open_input">
-                      <input type="text" class="form-control" id="floatingInput"
+                      <input type="text" class="form-control" id="yourmessage"
                          formControlName="yourmessage" 
                           required>
-                      <label for="floatingInput">Your Message </label>
+                      <label for="yourmessage">Your Message </label>
                   </div>
                   <button *ngIf="!handleBtnDisable" nzType="primary" class="ant-btn buy-now-btn" nzSize="large"  type="submit" >
                     <span class="nextbtn">Get in touch</span>  
+                    <p style="color:'white'" *ngIf="handleBtnDisable">Loading ...</p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="23px" height="18px" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
                   </button>
-                  <p style="color:'white'" *ngIf="handleBtnDisable">Loading ...</p>
+                 
                   <p class="{{contactSuccessResponse ? 'success' : 'error'}}">{{contactSuccessResponse ? contactSuccessResponse : contactFailResponse}}
                 </p>
                     </div>
@@ -65,5 +67,79 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="handleBtncontactus == 'appointment'" class="col-md-6 rightform">
+            <form class="form_block" ngNativeValidate  [formGroup]="appointment" (submit)="onSubmit()"  autocomplete="off">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-floating open_input appointclass">
+                            <!-- <nz-radio-group (ngModelChange)="onChangeradio()">
+                                <label nz-radio nzValue="'A'">
+                                  <span>In Appointmenr</span>
+                                </label>
+                                <label nz-radio ="'B'">
+                                  <span>By Video Conference</span>
+                                </label>
+                          </nz-radio-group> -->
+                          <div  class="custom-control custom-radio">
+                          <div>
+                            <input id="floatingInput" type="radio"   name="InAppointment" value="InAppointment" formControlName="InAppointment" ngModel="InAppointment"  required >
+                            <label  for="InAppointment">In Appointment</label>
+							
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="floatingInput" type="radio"   name="InAppointment" value="ByVideoConference" formControlName="InAppointment"  required>
+                            <label  for="ByVideoConference">By Video Conference</label>
+							
+                        </div>
+                    </div>
+                          
+                            <label for="floatingInput">How would you like to meet?</label>
+                        </div>
+
+                      <div class="form-floating open_input dateclass">
+                        <input type="date" class="form-control dateinput" id="desirad_datetime"
+                           formControlName="desirad_datetime"
+                            required>
+                        <label for="desirad_datetime">Desired date and time * </label>
+                    </div>
+                    <div class="form-floating open_input">
+                        <input type="text" class="form-control" id="yourName"
+                            formControlName="yourName"
+                            required>
+                        <label for="yourName">Your Name</label>
+                    </div>
+                    <div class="form-floating open_input">
+                        <input type="email" class="form-control" id="yourEmail"
+                            formControlName="yourEmail"
+                            required>
+                        <label for="yourEmail">Your Email</label>
+                    </div>
+                    <div class="form-floating open_input">
+                        <input type="text" class="form-control" id="yourPhoneNumber"
+                            formControlName="yourPhoneNumber"
+                            required>
+                        <label for="yourPhoneNumber">Your Phone Number</label>
+                    </div>
+
+                    <div class="form-floating open_input">
+                      <input type="text" class="form-control" id="yourMessage"
+                         formControlName="yourMessage" 
+                          required>
+                      <label for="yourMessage">Your Message </label>
+                  </div>
+                  <button *ngIf="!handleBtnDisable" class="ant-btn buy-now-btn" nzSize="large"  type="submit" >
+                    <span class="nextbtn">Get in touch</span>  
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23px" height="18px" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                  </button>
+                  <p style="color:'white'" *ngIf="handleBtnDisable">Loading ...</p> -->
+                  <p class="{{contactSuccessResponse ? 'success' : 'error'}}">{{contactSuccessResponse ? contactSuccessResponse : contactFailResponse}}
+                 </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+</div>
 </div>
 </div>

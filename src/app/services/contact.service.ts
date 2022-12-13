@@ -9,6 +9,15 @@ export type EmailData = {
   message: string;
 };
 
+export type makeAppoint = {
+  tomeet: string;
+  desiraddatetime: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+};
+
 @Injectable({
   providedIn: "root",
 })
@@ -23,5 +32,13 @@ export class ContactService {
           return response;
         })
       );
+  }
+
+  onMakeAppoint(appointData: makeAppoint): any {
+    return this.cmnSrv.post("make_an_appointment", appointData).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }
