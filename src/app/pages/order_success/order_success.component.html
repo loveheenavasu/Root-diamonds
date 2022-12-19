@@ -33,7 +33,8 @@
                 <hr class="cart-border">
                 <div class="cart_innr m-0">
                     <h3 class="cart_subtitle text-center">{{checkoutProduct?.name}}</h3>
-                    <p class="text-center small_title mb-2">{{checkoutProduct?.Design?.metal && checkoutProduct?.Design?.metal +  ','}} {{checkoutProduct?.Design?.style &&  checkoutProduct?.Design?.style + ','}} {{ checkoutProduct?.Stone?.stone_clarity && 'Color/Clarity:' + checkoutProduct?.Stone?.stone_clarity}}{{checkoutProduct?.Stone?.stone_colour && '/' + checkoutProduct?.Stone?.stone_colour}}</p>
+                    <!-- <p class="text-center small_title mb-2">{{checkoutProduct?.Design?.metal && checkoutProduct?.Design?.metal +  ','}} {{checkoutProduct?.Design?.style &&  checkoutProduct?.Design?.style + ','}} {{ checkoutProduct?.Stone?.stone_clarity && 'Color/Clarity:' + checkoutProduct?.Stone?.stone_clarity}}{{checkoutProduct?.Stone?.stone_colour && '/' + checkoutProduct?.Stone?.stone_colour}}</p> -->
+                    <p class="text-center small_title mb-2">{{checkoutProduct?.product_basic_details}}</p>
                     <p *ngIf="checkoutProduct?.total != ''" class="thanku_price text-center m-0"> $ {{checkoutProduct?.total}}</p>
                 </div>
 

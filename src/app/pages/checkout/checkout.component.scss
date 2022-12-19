@@ -173,13 +173,23 @@ a {
     .form-floating {
         margin-top: 24px;
     }
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+input[type=number]{
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
 }
 
-.form_block{
-    .order-btn {
-        // margin: 72px 0px 22px;
-    }
-}
+// .form_block{
+//     .order-btn {
+//         // margin: 72px 0px 22px;
+//     }
+// }
 
 .order-btn {
     background-color: #fff;

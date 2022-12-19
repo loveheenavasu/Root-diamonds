@@ -40,6 +40,7 @@ export class CategoryComponent implements OnInit {
   onOrientationChange(event: any) {
     window.location.reload();
   }
+  polishedFilterOpen: boolean = false;
   checkWholeSaleForm: FormGroup;
   full_name: FormControl = new FormControl();
   company_name: FormControl = new FormControl();
@@ -503,12 +504,14 @@ export class CategoryComponent implements OnInit {
 
   // Shop All Filter
   shopAllFilter(event: any) {
-    const ringFilter: any = document.querySelector(".shop-all-wrap");
-    ringFilter.classList.add("active");
+    this.polishedFilterOpen = true;
+    // const ringFilter: any = document.querySelector(".shop-all-wrap");
+    // ringFilter.classList.add("active");
   }
   shopAllFilterClose(event: any) {
-    const ringFilter: any = document.querySelector(".shop-all-wrap");
-    ringFilter.classList.remove("active");
+    this.polishedFilterOpen = false;
+    // const ringFilter: any = document.querySelector(".shop-all-wrap");
+    // ringFilter.classList.remove("active");
   }
   // Ring Filter Open & Close
   ringsFilter(event: any) {
@@ -530,12 +533,15 @@ export class CategoryComponent implements OnInit {
   }
   // Ring Filter Open & Close
   polishedFilter(event: any) {
-    const polishedFilter: any = document.querySelector(".polishedFilter");
-    polishedFilter.classList.add("active");
+    this.polishedFilterOpen = true;
+    // const polishedFilter: any = document.querySelector(".polishedFilter");
+    // polishedFilter.classList.add("active");
   }
   polishedFilterClose(event: any) {
-    const polishedFilter: any = document.querySelector(".polishedFilter");
-    polishedFilter.classList.remove("active");
+    this.polishedFilterOpen = false;
+
+    // const polishedFilter: any = document.querySelector(".polishedFilter");
+    // polishedFilter.classList.remove("active");
   }
   // Ring Filter Open & Close
   rawFilter(event: any) {

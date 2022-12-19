@@ -12,7 +12,7 @@
 
         <div class="secure_header">
             <h2 class="cart_title">Secure Checkout</h2>
-            <p class="inner_txt mb-0"><span class="yellow_color">FREE DELIVERY</span> on all UK and international orders </p>
+            <p class="inner_txt mb-0"><span class="yellow_color">FREE DELIVERY</span> on all US and international orders </p>
         </div>
 
         <div class="inner_block">
@@ -332,7 +332,8 @@
                         <hr class="cart-border">
                         <div class="cart_innr">
                             <h3 class="cart_subtitle text-center">{{singleProduct?.name}}</h3>
-                            <p class="text-center small_title">{{singleProduct?.Design?.metal ? singleProduct?.Design?.metal + ',' : ''  }} {{singleProduct?.Stone?.stone_cut ? singleProduct?.Stone?.stone_cut + ',' : ""}} Color/Clarity: {{singleProduct?.Stone?.stone_colour}}/{{singleProduct?.Stone?.stone_clarity}}</p>
+                            <!-- <p class="text-center small_title">{{singleProduct?.Design?.metal ? singleProduct?.Design?.metal + ',' : ''  }} {{singleProduct?.Stone?.stone_cut ? singleProduct?.Stone?.stone_cut + ',' : ""}} Color/Clarity: {{singleProduct?.Stone?.stone_colour}}/{{singleProduct?.Stone?.stone_clarity}}</p> -->
+                            <p class="text-center small_title"> {{singleProduct?.product_basic_details}} </p>
                         </div>
                         <div class="cart_price">
                             <div class="price_text d-flex justify-content-between">

@@ -16,7 +16,7 @@
             Filter
           </a>
         </div>
-        <div  class="d-flex shop-all-wrap" *ngFor="let category of categoryWiseProduct; let i = index" >
+        <div  class="d-flex shop-all-wrap"  [ngClass]="{'active': polishedFilterOpen}"  *ngFor="let category of categoryWiseProduct; let i = index" >
           <div class="shopall-categories">
             <!-- Category Start -Polish -->
             <div class="sub-heading">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="product-description" (click)="showModal3(categoryProduct)">
                       <h4 class="product-name">
-                        {{ categoryProduct?.Stone?.gemstone }}
+                        {{ categoryProduct.name }}
                       </h4>
                       <!-- <h5 class="product-size" *ngIf="categoryProduct?.Stone != ''" (click)="showModal3(categoryProduct?.id)">{{ categoryProduct?.Stone?.stone_colour }}/ {{categoryProduct?.Stone?.stone_clarity}}</h5> -->
                       <h5 class="product-size" *ngIf="categoryProduct?.Stone != ''">{{categoryProduct?.product_basic_details}}</h5>
@@ -172,10 +172,10 @@
         <nz-tabset class="inner-tabs" (click)="getCategoryId(categoryProduct.term_id)">
          
             <!-- Category Start - Rings-->
-          <nz-tab nzTitle="{{categoryProduct.name  == 'Polish' ? 'Polished diamonds' : categoryProduct.name+' diamonds'}}" >
+          <nz-tab nzTitle="{{categoryProduct.name  == 'Polish' ? 'Polish Diamonds' : categoryProduct.name+' Diamonds'}}" >
             <p class="'no_data_found" *ngIf="categoryProduct.products.length === 0"> No Data Found in {{categoryProduct.name}} category</p>
             <!-- Category Start -Polish -->
-            <div class="category-outer polishedFilter">
+            <div class="category-outer polishedFilter" [ngClass]="{'active': polishedFilterOpen}"  >
               <div class="category-listing">
                 <!-- Listing  -->
                 <div class="inner-wrap">
@@ -211,6 +211,8 @@
                 </div>
                 <!-- End -->
               </div>
+
+              
               
               <div class="filter-sidebar">
                 <a class="filter-btn" (click)="polishedFilter($event)">

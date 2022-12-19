@@ -2323,6 +2323,7 @@
                         margin-bottom: 9px;
                         height: 446px;
                         // cursor: pointer;
+                        
                         @include media-query-height(xl){
                             height: 415px;
                         }
@@ -2418,7 +2419,7 @@
                         }
                         nz-avatar{
                             position: absolute;
-                            padding: 10px;
+                            // padding: 10px;
                             left: 15px;
                             top: 15px;
                             background-color: $rd-white;
